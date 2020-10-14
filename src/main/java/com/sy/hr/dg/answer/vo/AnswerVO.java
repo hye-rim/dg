@@ -15,14 +15,14 @@ import java.util.List;
 
 @Entity
 @Data
-@Table(name="TB_ANSWER")
+@Table(name="tb_answer")
 @AllArgsConstructor
 @NoArgsConstructor
 public class AnswerVO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String answerCode;
+    private Long answerSeq;
 
     @ManyToOne
     private ProblemVO problemVO;

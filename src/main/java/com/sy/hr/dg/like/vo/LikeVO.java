@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name="TB_LIKE")
+@Table(name="tb_like")
 public class LikeVO {
 
     @Id

@@ -14,14 +14,14 @@ import java.util.List;
 import java.time.LocalDateTime;
 
 @Entity
-@Table (name = "TB_USER")
+@Table (name = "tb_user")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserVO {
     @Id
-    @GeneratedValue
-    private String userCode;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long userSeq;
     private String userName;
     private String email;
     private String nickname;
@@ -31,6 +31,8 @@ public class UserVO {
     private Integer successCount;
     private LocalDateTime regDate;
     private LocalDateTime updtDate;
+
+    //@Column(name = "DELETE_YN")
     private String deleteYn;
 
     @OneToMany(mappedBy = "userVO")

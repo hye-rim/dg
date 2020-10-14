@@ -14,14 +14,14 @@ import java.util.List;
 
 @Entity
 @Data
-@Table(name="TB_PROBLEM_LIST")
+@Table(name="tb_problem")
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProblemVO {
 
     @Id
-    @GeneratedValue
-    private String problemCode;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long problemSeq;
 
     @OneToMany
     private List<CodeVO> languageList = new ArrayList<>();
