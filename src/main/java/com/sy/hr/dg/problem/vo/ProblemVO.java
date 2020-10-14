@@ -1,5 +1,6 @@
 package com.sy.hr.dg.problem.vo;
 
+import com.sy.hr.dg.answer.vo.AnswerVO;
 import com.sy.hr.dg.common.vo.CodeVO;
 import com.sy.hr.dg.user.vo.UserVO;
 import lombok.AllArgsConstructor;
@@ -25,7 +26,7 @@ public class ProblemVO {
     @OneToMany
     private List<CodeVO> languageList = new ArrayList<>();
 
-    @OneToOne
+    @ManyToOne
     private UserVO userVO;
 
     private String level;
@@ -35,4 +36,7 @@ public class ProblemVO {
     private LocalDate updtDate;
     private String input;
     private String output;
+
+    @OneToMany(mappedBy = "problemVO")
+    private List<AnswerVO> answerVOList;
 }

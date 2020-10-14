@@ -1,6 +1,7 @@
 package com.sy.hr.dg.answer.vo;
 
 import com.sy.hr.dg.common.vo.CodeVO;
+import com.sy.hr.dg.like.vo.LikeVO;
 import com.sy.hr.dg.problem.vo.ProblemVO;
 import com.sy.hr.dg.user.vo.UserVO;
 import lombok.AllArgsConstructor;
@@ -30,8 +31,7 @@ public class AnswerVO {
     private CodeVO codeVO; // languageCode
 
     @ManyToOne
-    @JoinColumn(name = "USER_CODE")
-    private UserVO userCode;
+    private UserVO userVO;
 
     private String answer;
     private LocalDate regDate;
@@ -40,4 +40,7 @@ public class AnswerVO {
     private String openYn;
     private Long time;
     private Long memory;
+
+    @OneToMany(mappedBy = "answerVO")
+    private List<LikeVO> likeVOList;
 }

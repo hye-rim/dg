@@ -1,12 +1,12 @@
 package com.sy.hr.dg.user.vo;
 
+import com.sy.hr.dg.answer.vo.AnswerVO;
+import com.sy.hr.dg.like.vo.LikeVO;
+import com.sy.hr.dg.problem.vo.ProblemVO;
 import lombok.*;
 import lombok.experimental.Accessors;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -33,7 +33,12 @@ public class UserVO {
     private LocalDateTime updtDate;
     private String deleteYn;
 
+    @OneToMany(mappedBy = "userVO")
+    private List<ProblemVO> problemVOList;
 
-    public UserVO() {
-    }
+    @OneToMany(mappedBy = "userVO")
+    private List<AnswerVO> answerVOList;
+
+    @OneToMany(mappedBy = "userVO")
+    private List<LikeVO> likeVOList;
 }

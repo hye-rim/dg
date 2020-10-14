@@ -23,7 +23,7 @@ public class LikeVO {
     @ManyToOne
     private AnswerVO answerVO;
 
-    @OneToOne
+    @ManyToOne
     private UserVO userVO;
 
     private LocalDate regDate;
