@@ -30,4 +30,9 @@ public class UserRepositoryTest extends DgApplicationTests {
         System.out.println( newUser );
     }
 
+    @Test
+    public void count() {
+        System.out.println( userRepository.countByEmail( "j@abc.com" ) );
+    }
+
 }
