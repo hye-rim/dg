@@ -30,12 +30,12 @@ public class User {
     //@Column(name = "DELETE_YN")
     private String deleteYn;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "user")
     private List<Problem> problemList;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(fetch = FetchType.LAZY ,mappedBy = "user")
     private List<Answer> answerList;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<LikeAnswer> likeAnswerList;
 }

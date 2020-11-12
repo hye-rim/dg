@@ -12,12 +12,17 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MockMvcBuilder;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
+
+import java.time.LocalDateTime;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.Mockito.when;
@@ -27,43 +32,49 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 
 
-@RunWith(SpringRunner.class)
-//@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
-//@AutoConfigureMockMvc
-@WebMvcTest
-public class UserControllerTest {
+//@RunWith(SpringRunner.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+    @AutoConfigureMockMvc
+//@WebMvcTest
 
-    @Autowired
-    private MockMvc mockMvc;
+    @RunWith(SpringJUnit4ClassRunner.class)
+//@WebAppConfiguration
+    public class UserControllerTest {
 
-    @MockBean
+        //@Autowired
+        private MockMvc mockMvc;
+
+        @MockBean
     private UserService userService;
 
-    /*@Before
-    public void before() {
-        mockMvc = MockMvcBuilders.standaloneSetup(UserController.class)
-                .alwaysExpect(status().isOk())
-                .build();
-    }*/
+    //@Autowired
+    //private UserController userController;
+
+    @Autowired
+    private WebApplicationContext wac;
+
+
+    @Before
+    public void setup() {
+        //스프링이 준 WebApplicationContext를 이용해서 mockmvc를 생성
+        this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
+       // logger.debug("setup BoardControllerTest mockMvc...");
+    }
 
     @Test
     public void test() throws Exception {
-        //when( userService.doubleCheckEmail( "j@abc.com" ) ).thenReturn( 10L );
+        //when( userService.doubleCheckEmail( "j@abc.com" ) ).thenReturn( 9L );
 
-        mockMvc.perform( get( "/doubleCheckEmail" )
+        this.mockMvc.perform( get( "/doubleCheckEmail" )
                 .param( "email", "j@abc.com" ))
                 .andExpect( status().isOk() )
                 //.andExpect( content().string( equalTo( 5 ) ) )
                 .andDo( print() );
+    }
 
-
-                //.andExpect( content().toString() )
+    @Test
+    public void test2() throws Exception {
 
     }
-//
-//    optionalCategory.ifPresent(c -> {
-//        User.assertEquals(c.getType(),type);
-//        System.out.println(c.getId());
-
 
 }

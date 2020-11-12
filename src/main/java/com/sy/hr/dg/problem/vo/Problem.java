@@ -6,6 +6,8 @@ import com.sy.hr.dg.user.vo.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -31,11 +33,15 @@ public class Problem {
     private String level;
     private String problemTitle;
     private String problemContents;
+
+    @CreatedDate
     private LocalDate regDate;
+
+    @LastModifiedDate
     private LocalDate updtDate;
     private String input;
     private String output;
 
-    @OneToMany(mappedBy = "problem")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "problem")
     private List<Answer> answerList;
 }

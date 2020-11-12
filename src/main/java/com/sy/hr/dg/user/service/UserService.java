@@ -17,6 +17,8 @@ public class UserService {
 
     public Long  doubleCheckEmail(String email) {
         System.out.println("UserService 진입");
+
+
         return userRepository.countByEmail( email );
     }
 }
