@@ -19,7 +19,7 @@ public class UserRepositoryTest extends DgApplicationTests {
         user.setEmail("j@abc.com");
         user.setNickname("Joo");
         user.setPassword("dream1004!");
-        user.setMobile(01000001111);
+        user.setMobile("01000001111");
         user.setRegDate(LocalDateTime.now());
         user.setUpdtDate(LocalDateTime.now());
         user.setSuccessCount(0);

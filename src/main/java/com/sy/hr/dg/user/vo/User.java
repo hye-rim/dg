@@ -3,21 +3,13 @@ package com.sy.hr.dg.user.vo;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 import com.sy.hr.dg.answer.vo.Answer;
 import com.sy.hr.dg.like.vo.LikeAnswer;
 import com.sy.hr.dg.problem.vo.Problem;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Data
@@ -25,6 +17,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
+@Builder
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,10 +26,18 @@ public class User {
     private String email;
     private String nickname;
     private String password;
-    private Integer mobile;
+    private String mobile;
+
+    @Column(insertable = false, updatable = false)
     private Integer tryCount;
+
+    @Column(insertable = false, updatable = false)
     private Integer successCount;
+
+    @Column(insertable = false, updatable = false)
     private LocalDateTime regDate;
+
+    @Column(insertable = false, updatable = false)
     private LocalDateTime updtDate;
 
     //@Column(name = "DELETE_YN")

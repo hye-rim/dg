@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 public class Header<T> {
 
     // api 통신시간
-    private LocalDateTime transactionTime;
+    private LocalDateTime responseTime;
 
 
     // api 응답 코드
@@ -33,17 +33,16 @@ public class Header<T> {
     // OK
     public static <T> Header<T> OK(){
         return (Header<T>)Header.builder()
-                .transactionTime(LocalDateTime.now())
+                .responseTime(LocalDateTime.now())
                 .resultCode("OK")
                 .description("OK")
                 .build();
     }
 
-
     // DATA OK
     public static <T> Header<T> OK(T data){
         return (Header<T>)Header.builder()
-                .transactionTime(LocalDateTime.now())
+                .responseTime(LocalDateTime.now())
                 .resultCode("OK")
                 .description("OK")
                 .data(data)
@@ -63,7 +62,7 @@ public class Header<T> {
     // ERROR
     public static <T> Header<T> ERROR(String description){
         return (Header<T>)Header.builder()
-                .transactionTime(LocalDateTime.now())
+                .responseTime(LocalDateTime.now())
                 .resultCode("ERROR")
                 .description(description)
                 .build();

@@ -1,15 +1,19 @@
 package com.sy.hr.dg.user.controller;
 
+import com.sy.hr.dg.model.network.Header;
+import com.sy.hr.dg.model.network.request.user.UserRegistRequest;
 import com.sy.hr.dg.user.service.UserService;
 import com.sy.hr.dg.user.vo.User;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
+@RequestMapping("/user")
 @RestController
+@Slf4j
 public class UserController {
 
     @Autowired
@@ -19,23 +23,19 @@ public class UserController {
         this.userService = userService;
     }
 
+
     @GetMapping("/doubleCheckEmail")
-    public Long  doubleCheckEmail(@Param( value="email" ) String email ) {
+    public Long doubleCheckEmail(@Param( value="email" ) String email ) {
+        System.out.println( userService.doubleCheckEmail( email ) );
 
-       System.out.println( "email >>> " + email );
-
-       System.out.println( userService.doubleCheckEmail( email ) );
-       System.out.println(test());
-
-
-
-
-       return userService.doubleCheckEmail( email );
-        //return 100L;
+        return userService.doubleCheckEmail( email );
     }
 
-    public  String test (){
-        return "test";
+    @PostMapping
+    public Header registUser( @RequestBody Header<UserRegistRequest> request ) {
+        log.info( "request => {}", request );
+
+        return userService.registUser( request );
     }
 
 }
