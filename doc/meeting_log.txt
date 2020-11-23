@@ -110,3 +110,10 @@
 * Todo
 	- CrudInterface 만들기
 	- 예외처리 클래스 만들기
+
+2020. 11. 17.
+* 진행 사항
+    - db default 사용 시 해당 필드에 @Column(insertable = false, updatable = false) 설정을 해준다 > 왜 해줘야 하는지 좀 알겠음
+        >> @EntityListeners(AuditingEntityListener.class)  //@CreateDate, @LastModifiedDate 사용 시 추가해야함
+            JpaConfig 클래스 파일도 추가함
+

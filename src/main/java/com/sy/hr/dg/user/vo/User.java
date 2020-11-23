@@ -1,5 +1,6 @@
 package com.sy.hr.dg.user.vo;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -10,11 +11,15 @@ import com.sy.hr.dg.like.vo.LikeAnswer;
 import com.sy.hr.dg.problem.vo.Problem;
 
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@EntityListeners(AuditingEntityListener.class)  //CreateDate, LastModifiedDate 사용 시 추가해야함
 @Getter
 @Setter
 @Builder
@@ -34,11 +39,11 @@ public class User {
     @Column(insertable = false, updatable = false)
     private Integer successCount;
 
-    @Column(insertable = false, updatable = false)
-    private LocalDateTime regDate;
+    @CreatedDate
+    private LocalDate regDate;
 
-    @Column(insertable = false, updatable = false)
-    private LocalDateTime updtDate;
+    @LastModifiedDate
+    private LocalDate updtDate;
 
     //@Column(name = "DELETE_YN")
     private String deleteYn;
