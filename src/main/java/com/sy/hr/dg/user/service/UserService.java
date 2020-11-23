@@ -1,15 +1,15 @@
 package com.sy.hr.dg.user.service;
 
 import com.sy.hr.dg.model.network.Header;
+import com.sy.hr.dg.model.network.request.user.UserReadForEmailRequest;
 import com.sy.hr.dg.model.network.request.user.UserRegistRequest;
+import com.sy.hr.dg.model.network.response.user.UserReadForEmailResponse;
 import com.sy.hr.dg.user.repository.UserRepository;
 import com.sy.hr.dg.user.vo.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.rmi.dgc.DGC;
-import java.time.LocalDateTime;
-import java.util.Optional;
+import static com.sy.hr.dg.model.network.Header.OK;
 
 @Service
 @Slf4j
@@ -31,7 +31,7 @@ public class UserService {
      * @params
      * @return
      */
-    public Long  doubleCheckEmail(String email) {
+    public Long doubleCheckEmail(String email) {
         System.out.println("UserService 진입");
 
         return userRepository.countByEmail( email );
@@ -50,13 +50,19 @@ public class UserService {
                          .nickname( userRegistRequest.getNickname() )
                          .password( userRegistRequest.getPassword() )
                          .mobile( userRegistRequest.getMobile() )
-                         //.regDate( LocalDateTime.now() )
-                         //.updtDate( LocalDateTime.now() )
                          .build();
 
         User newUser = userRepository.save( user );
 
-        return Header.OK();
+        return OK();
+    }
+
+    public Header<UserReadForEmailResponse> readUser( String email ) {
+        log.info("readUser email => {}", email);
+
+        UserReadForEmailResponse user = userRepository.findByEmail( email );
+
+        return Header.OK(user);
     }
 }
 
