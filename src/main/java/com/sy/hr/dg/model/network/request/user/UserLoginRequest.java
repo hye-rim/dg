@@ -9,8 +9,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-// 로그인 기능
 public class UserLoginRequest {
+    /**
+     * @className UserLoginRequest
+     * @description 로그인
+     */
 
     private String email;
 

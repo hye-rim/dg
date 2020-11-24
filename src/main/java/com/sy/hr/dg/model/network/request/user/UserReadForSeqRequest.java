@@ -9,15 +9,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class UserModifyRequest {
+public class UserReadForSeqRequest {
     /**
-     * @className UserModifyRequest
-     * @description 회원 정보 수정
+     * @className UserReadForEmailRequest
+     * @description 회원 정보 조회, 회원 탈퇴
      */
 
     private Long userSeq;
 
-    private String password;
-
-    private String mobile;
 }

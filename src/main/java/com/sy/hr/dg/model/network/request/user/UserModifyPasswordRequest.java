@@ -9,8 +9,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-// 비밀번호 변경 기능
 public class UserModifyPasswordRequest {
+    /**
+     * @className UserModifyPasswordRequest
+     * @description 비밀번호 변경
+     */
 
     private String email;
 

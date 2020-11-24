@@ -27,25 +27,40 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userSeq;
+
+    @Column(updatable = false)
     private String userName;
+
+    @Column(updatable = false)
     private String email;
+
+    @Column(updatable = false)
     private String nickname;
+
+    @Column(updatable = false)
     private String password;
+
+    @Column(updatable = false)
     private String mobile;
 
+    //DB에 default value가 정해져 있으면 insertable=false 아니면 true , tryCount default = 0
     @Column(insertable = false, updatable = false)
     private Integer tryCount;
 
+    //DB에 default value가 정해져 있으면 insertable=false 아니면 true , successCount default = 0
     @Column(insertable = false, updatable = false)
     private Integer successCount;
 
     @CreatedDate
+    @Column(updatable = false)
     private LocalDate regDate;
 
     @LastModifiedDate
+    @Column(insertable = false)
     private LocalDate updtDate;
 
-    //@Column(name = "DELETE_YN")
+    //DB에 default value가 정해져 있으면 insertable=false 아니면 true , deleteYn default = N
+    @Column(insertable = false, updatable = false)
     private String deleteYn;
 
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "user")

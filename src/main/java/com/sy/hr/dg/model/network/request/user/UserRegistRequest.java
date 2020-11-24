@@ -9,8 +9,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-// 회원 정보 등록 기능
 public class UserRegistRequest {
+    /**
+     * @className UserRegistRequest
+     * @description 회원 정보 등록
+     */
 
     private String userName;
 

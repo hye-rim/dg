@@ -2,7 +2,11 @@ package com.sy.hr.dg.user.controller;
 
 import com.sy.hr.dg.common.ifs.CrudInterface;
 import com.sy.hr.dg.model.network.Header;
+import com.sy.hr.dg.model.network.request.user.UserFindEmailRequest;
+import com.sy.hr.dg.model.network.request.user.UserModifyRequest;
+import com.sy.hr.dg.model.network.request.user.UserReadForEmailRequest;
 import com.sy.hr.dg.model.network.request.user.UserRegistRequest;
+import com.sy.hr.dg.model.network.response.user.UserReadForEmailResponse;
 import com.sy.hr.dg.user.service.UserService;
 import com.sy.hr.dg.user.vo.User;
 import lombok.extern.slf4j.Slf4j;
@@ -15,7 +19,7 @@ import java.util.Optional;
 @RequestMapping("/user")
 @RestController
 @Slf4j
-public class UserController implements CrudInterface {
+public class UserController {
 
     @Autowired
     private final UserService userService;
@@ -25,39 +29,68 @@ public class UserController implements CrudInterface {
     }
 
 
+
     @GetMapping("/doubleCheckEmail")
     public Long doubleCheckEmail(@Param( value="email" ) String email ) {
+        /**
+         * @description 이메일중복확인
+         * @method doubleCheckEmail
+         * @params [email]
+         * @return java.lang.Long
+         *
+         * @author hr
+         * @since 2020-11-25
+         */
         System.out.println( userService.doubleCheckEmail( email ) );
 
         return userService.doubleCheckEmail( email );
     }
 
-  /*  @PostMapping
-    public Header regist( @RequestBody Header<UserRegistRequest> request ) {
+    @PostMapping
+    public Header registUser( @RequestBody Header<UserRegistRequest> request ) {
+        /**
+         * @description 회원정보등록
+         * @method registUser
+         * @params [request]
+         * @return com.sy.hr.dg.model.network.Header
+         *
+         * @author hr
+         * @since 2020-11-25
+         */
         log.info( "request => {}", request );
 
         return userService.registUser( request );
     }
-*/
-    @Override
-    public Header regist( @RequestBody Header<UserRegistRequest> request ) {
-        log.info( "request => {}", request );
 
-        return userService.registUser( request );
+    @GetMapping("/{email}")
+    //public Header<UserReadForEmailResponse> readUser( @RequestBody Header<UserReadForEmailRequest> request ) {
+    public Header<UserReadForEmailResponse> readUser( @PathVariable String email ) {
+        /**
+         * @description 회원정보조회
+         * @method readUser
+         * @params [email]
+         * @return com.sy.hr.dg.model.network.Header<com.sy.hr.dg.model.network.response.user.UserReadForEmailResponse>
+         *
+         * @author hr
+         * @since 2020-11-25
+         */
+        log.info( "email => {}", email );
+
+        return userService.readUser( email );
     }
 
-    @Override
-    public Header read(Long id) {
-        return null;
+    @PutMapping
+    public Header modifyUser( @RequestBody Header<UserModifyRequest> request ) {
+        /**
+         * @description 회원정보수정
+         * @method modifyUser
+         * @params [request]
+         * @return com.sy.hr.dg.model.network.Header
+         *
+         * @author hr
+         * @since 2020-11-25
+         */
+        return userService.modifyUser( request );
     }
 
-    @Override
-    public Header update(Header request) {
-        return null;
-    }
-
-    @Override
-    public Header delete(Long id) {
-        return null;
-    }
 }

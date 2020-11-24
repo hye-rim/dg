@@ -9,8 +9,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-// 닉네임 중복확인 기능
 public class UserReadForNicknameRequest {
+    /**
+     * @className UserReadForNicknameRequest
+     * @description 닉네임 중복확인
+     */
 
     private String nickname;
 

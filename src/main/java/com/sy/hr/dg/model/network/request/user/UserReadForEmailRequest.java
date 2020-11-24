@@ -9,8 +9,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-// 회원 탈퇴, 이메일 중복확인, 회원 정보 조회 기능
 public class UserReadForEmailRequest {
+    /**
+     * @className UserReadForEmailRequest
+     * @description 이메일 중복확인
+     */
 
     private String email;
 

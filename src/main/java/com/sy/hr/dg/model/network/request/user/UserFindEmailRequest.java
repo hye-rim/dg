@@ -9,8 +9,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-// 이메일 찾기 기능
 public class UserFindEmailRequest {
+    /**
+     * @className UserFindEmailRequest
+     * @description 이메일 찾기
+     */
 
     private String name;
 

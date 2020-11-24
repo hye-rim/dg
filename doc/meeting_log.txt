@@ -2,12 +2,12 @@
 * 진행사항
 	- 비밀번호 저장시 SHA256으로 암호화
 	- 이메일 인증 시 코드 전송
-	- 회원 탈퇴 시 탈퇴여부 컬럼 변경 N > Y
+	- 회원 탈퇴 시 탈퇴 여부 컬럼 변경 N > Y
 
 * 개발 관련
 	- 패키지 명
 		. com.sy.hr.dg ~~~
-	- 메소드 명명규칙
+	- 메소드 명명 규칙
 		. 동사+명사 ex) sendEmail
 	- 프로젝트 구조
 		. Controller
@@ -17,14 +17,14 @@
 
 * 변경된 사항
 	- 디비
-		. 유저테이블 - 회원 탈퇴 여부 추가
-		. 코드테이블 - 코드명 추가
-		. 문제테이블 - 문제난이도 데이터타입변경
+		. 유저 테이블 - 회원 탈퇴 여부 추가
+		. 코드 테이블 - 코드명 추가
+		. 문제 테이블 - 문제 난이도 데이터 타입 변경
 
 2020. 10. 06.
-* 진행사항
+* 진행 사항
 	- DB 셋팅 해야함
-	- 데드라인설정 해야함
+	- 데드 라인 설정 해야함
 
 * 개발 관련
 	- 페이징 처리
@@ -35,7 +35,7 @@
 	- VO : Request, Response 따로 처리
 
 2020. 10. 13.
-* 진행사항
+* 진행 사항
 	- VO 만듦
 	- DB 수정
 		. TB_PLOBLEM_LIKE
@@ -46,42 +46,42 @@
 	- 좋아요는 일단 답안만 해당
 
 * 기타
-	- 연관관계 -> PPT 참고
+	- 연관 관계 -> PPT 참고
 	- 랭킹 -> 일별, 주별, 월별 배치 돌린후 DB에 저장
 
 * 해야할 것
-	- PPT작성
+	- PPT 작성
 
 
 2020. 10. 14.
-* 진행사항
+* 진행 사항
 	- VO 완성
 	- 테이블 대문자 > 소문자 변경
 
 * 이슈		
-	- 인텔리제이에서 대문자로 입력한 테이블 명이 소문자로 인식되는 경우
+	- intellij 에서 대문자로 입력한 테이블 명이 소문자로 인식되는 경우
 		: application.properties에 추가 >> spring.jpa.hibernate.naming.physical-strategy=org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-	- mysql 테이블/데이터베이스명 대소문자 구분 하도록 초기설정이 되어있음 (리눅스에서)
-		: 추후 구분하지 않도록 설정하려면 초기 설치 시my.cnf 파일  lower_case_table_names=1로 설정 해야 함
+	- mysql 테이블/데이터베이스명 대소문자 구분 하도록 초기 설정이 되어 있음 (리눅스 에서)
+		: 추후 구분 하지 않도록 설정 하려면 초기 설치 시my.cnf 파일  lower_case_table_names=1로 설정 해야 함
 
 2020. 11. 10.
 * 진행사항
 
 * 개발 관련
 	- CommonResponseVO => Status > resultCode로 변경
-	- 회원가입시 비밀번호 SHA256 암호화
+	- 회원 가입 시 비밀 번호 SHA256 암호화
 	- 문제 난이도 : easy, normal, hard
 
 * Todo
-	- 관리자페이지 만들어야함 > 문제 승인 절차 필요
-	- 에러코드 정의, 공통코드 정의
+	- 관리자 페이지 만들어야 함 > 문제 승인 절차 필요
+	- 에러 코드 정의, 공통 코드 정의
 	- request, response 만들기
-	- 인터페이스명세서 작성
+	- 인터페이스 명세서 작성
 	- 목테스트 알아보고 오기
 	- 
 
 2020. 11. 11.
-* 진행사항
+* 진행 사항
 	- 랭킹 관련 인터페이스는 추후에 설계
 
 * 개발 관련
@@ -89,8 +89,8 @@
 
 * Todo
 	- request, response 만들기
-	- 에러코드 정의, 공통코드 정의
-	- 예외처리
+	- 에러 코드 정의, 공통 코드 정의
+	- 예외 처리
 
 
 2020. 11. 12.
@@ -98,13 +98,13 @@
 	- request, response 만들기(100%)
 
 * Todo
-	- 에러코드 정의, 공통코드 정의
-	- 예외처리
+	- 에러 코드 정의, 공통 코드 정의
+	- 예외 처리
 	- git 푸시
-	- 주석템플릿정의
+	- 주석 템플릿 정의
 
 2020. 11. 16.
-* 진행사항
+* 진행 사항
 	- db default 사용 시 해당 필드에 @Column(insertable = false, updatable = false) 설정을 해준다 > 왜 해줘야 하는지 아직 모르겠음 ㅡㅡ
 
 * Todo
@@ -116,4 +116,17 @@
     - db default 사용 시 해당 필드에 @Column(insertable = false, updatable = false) 설정을 해준다 > 왜 해줘야 하는지 좀 알겠음
         >> @EntityListeners(AuditingEntityListener.class)  //@CreateDate, @LastModifiedDate 사용 시 추가해야함
             JpaConfig 클래스 파일도 추가함
+
+2020. 11. 25.
+* 진행 사항
+    - 회원 정보 수정 메서드 작성
+    - UserVo에 insert update 필수 값 유무 확인
+        - 인터페이스 명세서 수정 (기능 세분화)
+            . 이메일 중복확인 / 회원 탈퇴, 회원 정보 조회 request 분리
+
+* Todo (익일 6시)
+    1. 인터페이스 명세서 수정 (기능 세분화 및 기능 확인)
+    2. wbs 문서 다시 작성
+    3. 인터페이스 명세서에 맞춰 소스단 request response 값 수정
+    4. Vo에 insert update 필수 값 유무 확인
 
