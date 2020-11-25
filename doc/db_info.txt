@@ -1,0 +1,7 @@
+DG 계정
+mysql  Ver 8.0.21 
+
+host :	10.10.30.17
+port :	3306
+user :	US_DOG_GI
+pw : 	Xkfemfla1!
