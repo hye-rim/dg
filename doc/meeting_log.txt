@@ -130,3 +130,14 @@
     3. 인터페이스 명세서에 맞춰 소스단 request response 값 수정
     4. Vo에 insert update 필수 값 유무 확인
 
+2020. 11. 26.
+* 진행 사항
+    - 인터페이스 명세서 수정 (기능 세분화 및 기능 확인)
+        . 명세서 수정은 했지만 URL이나 기타.. 수정 해야함
+    - WBS 문서 작성
+
+* Todo
+    1. 인증번호 테이블 생성 필요
+    2. 인터페이스 명세서에 맞춰 소스단 request response 값 수정
+    3. request/response 값은 개발하면서 알아서 수정
+    4. Vo에 insert update 필수 값 유무 확인
