@@ -33,8 +33,13 @@ public class Problem {
     @ManyToOne
     private User user;
 
+    @Column(updatable = false)
     private String level;
+
+    @Column(updatable = false)
     private String problemTitle;
+
+    @Column(updatable = false)
     private String problemContents;
 
     @CreatedDate
@@ -42,7 +47,11 @@ public class Problem {
 
     @LastModifiedDate
     private LocalDate updtDate;
+
+    @Column(updatable = false)
     private String input;
+
+    @Column(updatable = false)
     private String output;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "problem")

@@ -50,8 +50,10 @@ public class Answer {
     @Column(insertable = false, updatable = false)
     private String openYn;
 
+    @Column(updatable = false)
     private Long time;
 
+    @Column(updatable = false)
     private Long memory;
 
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "answer")

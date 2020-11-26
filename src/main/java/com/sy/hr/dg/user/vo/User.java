@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.*;
 
 import com.sy.hr.dg.answer.vo.Answer;
+import com.sy.hr.dg.email.vo.Email;
 import com.sy.hr.dg.like.vo.LikeAnswer;
 import com.sy.hr.dg.problem.vo.Problem;
 
@@ -71,4 +72,7 @@ public class User {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<LikeAnswer> likeAnswerList;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private List<Email> emailList;
 }
