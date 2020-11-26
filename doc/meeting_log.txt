@@ -141,3 +141,13 @@
     2. 인터페이스 명세서에 맞춰 소스단 request response 값 수정
     3. request/response 값은 개발하면서 알아서 수정
     4. Vo에 insert update 필수 값 유무 확인
+
+2020. 11. 27.
+* 진행 사항
+    - 인증번호 테이블 생성 완료
+    - 인터페이스 명세서에 맞춰 소스단 request response 값 수정
+    - request/response 값은 개발하면서 알아서 수정
+    - Vo에 insert update 필수 값 유무 확인
+
+* Todo
+    - 개발 (11. 29 12:00 교회....)
