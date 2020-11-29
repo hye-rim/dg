@@ -1,2 +1,7 @@
 GET http://localhost:8080/user/aaa@bb.cc
 ###
+
+
+GET http://localhost:8080/problem/1
+
+###
