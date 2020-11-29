@@ -1,4 +1,4 @@
-package com.sy.hr.dg.model.network.response.user;
+package com.sy.hr.dg.problem.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-// 닉네임, 이메일 중복 확인 기능
-public class UserDuplicateResponse {
+// 문제 상세 조회 기능
+public class ProblemDetailRequest {
 
-    private String duplicateYn;
+    private Long problemSeq;
 
 }

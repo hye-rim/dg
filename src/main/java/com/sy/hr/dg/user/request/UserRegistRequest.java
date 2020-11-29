@@ -1,4 +1,4 @@
-package com.sy.hr.dg.model.network.response.user;
+package com.sy.hr.dg.user.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,8 +9,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-// 회원 정보 조회 기능
-public class UserReadForEmailResponse {
+public class UserRegistRequest {
+    /**
+     * @className UserRegistRequest
+     * @description 회원 정보 등록
+     */
 
     private String userName;
 
@@ -21,11 +24,4 @@ public class UserReadForEmailResponse {
     private String password;
 
     private String mobile;
-
-    private String tryCount;
-
-    private String successCount;
-
-    private String deleteYn;
-
 }

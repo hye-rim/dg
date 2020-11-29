@@ -9,10 +9,9 @@ import java.time.LocalDate;
 
 @Entity
 @Data
-@Table(name="TB_COMMON_CODE")
 @AllArgsConstructor
 @NoArgsConstructor
-public class CodeVO {
+public class Code {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

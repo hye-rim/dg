@@ -1,6 +1,5 @@
 package com.sy.hr.dg.answer.vo;
 
-import com.sy.hr.dg.common.vo.CodeVO;
 import com.sy.hr.dg.like.vo.LikeAnswer;
 import com.sy.hr.dg.problem.vo.Problem;
 import com.sy.hr.dg.user.vo.User;
@@ -28,12 +27,13 @@ public class Answer {
     private Long answerSeq;
 
     @ManyToOne
+    @JoinColumn(name = "problem_seq")
     private Problem problem;
 
-    @OneToOne
-    private CodeVO codeVO; // languageCode
+    private String languageCode;
 
     @ManyToOne
+    @JoinColumn(name = "user_seq")
     private User user;
 
     private String answer;
@@ -56,6 +56,4 @@ public class Answer {
     @Column(updatable = false)
     private Long memory;
 
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "answer")
-    private List<LikeAnswer> likeAnswerList;
 }

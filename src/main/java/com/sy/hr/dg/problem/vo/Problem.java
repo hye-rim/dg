@@ -1,7 +1,6 @@
 package com.sy.hr.dg.problem.vo;
 
 import com.sy.hr.dg.answer.vo.Answer;
-import com.sy.hr.dg.common.vo.CodeVO;
 import com.sy.hr.dg.user.vo.User;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -10,7 +9,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -27,10 +25,8 @@ public class Problem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long problemSeq;
 
-    @OneToMany
-    private List<CodeVO> languageList = new ArrayList<>();
-
     @ManyToOne
+    @JoinColumn(name = "user_seq")
     private User user;
 
     @Column(updatable = false)
@@ -54,6 +50,6 @@ public class Problem {
     @Column(updatable = false)
     private String output;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "problem")
-    private List<Answer> answerList;
+    /*@OneToMany(fetch = FetchType.LAZY, mappedBy = "problem")
+    private List<Answer> answerList;*/
 }
