@@ -1,13 +1,9 @@
 package com.sy.hr.dg.problem.controller;
 
 import com.sy.hr.dg.model.network.Header;
-
-
-import com.sy.hr.dg.model.network.response.problem.ProblemResponse;
 import com.sy.hr.dg.problem.request.ProblemReadRequest;
-
+import com.sy.hr.dg.problem.response.ProblemResponse;
 import com.sy.hr.dg.problem.service.ProblemService;
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Slf4j
 public class ProblemController {
-
 
     @Autowired
     private final ProblemService problemService;

@@ -4,6 +4,7 @@ import com.sy.hr.dg.like.vo.LikeAnswer;
 import com.sy.hr.dg.problem.vo.Problem;
 import com.sy.hr.dg.user.vo.User;
 import lombok.*;
+import lombok.experimental.Accessors;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -45,9 +46,11 @@ public class Answer {
     private String answer;
 
     @CreatedDate
+    @Column(insertable = false, updatable = false)
     private LocalDate regDate;
 
     @LastModifiedDate
+    @Column(insertable = false, updatable = false)
     private LocalDate updtDate;
 
     @Column(insertable = false, updatable = false)

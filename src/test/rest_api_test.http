@@ -34,3 +34,20 @@ Content-Type: application/json
 
 ###
 GET http://localhost:8080/problem/1
+
+###
+POST http://localhost:8080/answer
+Content-Type: application/json
+
+{
+    "data" : {
+        "problem_seq" : 1
+        , "language_code" : "C1001"
+        , "user_seq" : 1
+        , "answer" : "System.out.println('hello,');"
+        , "success_yn" : "N"
+        , "open_yn" : "Y"
+        , "time" : "23"
+        , "memory" : "20"
+    }
+}

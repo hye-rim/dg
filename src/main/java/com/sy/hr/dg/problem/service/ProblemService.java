@@ -1,13 +1,22 @@
 package com.sy.hr.dg.problem.service;
 
 import com.sy.hr.dg.model.network.Header;
-import com.sy.hr.dg.model.network.response.problem.ProblemResponse;
 import com.sy.hr.dg.problem.repository.ProblemRepository;
+import com.sy.hr.dg.problem.request.ProblemReadRequest;
+import com.sy.hr.dg.problem.response.ProblemResponse;
 import com.sy.hr.dg.problem.vo.Problem;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
-import static com.sy.hr.dg.model.network.Header.OK;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Stream;
 
 @Service
 @Slf4j
