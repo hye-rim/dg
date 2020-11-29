@@ -1,7 +1,53 @@
-GET http://localhost:8080/user/aaa@bb.cc
+### 회원
+
+### 이메일 중복 확인
+GET http://localhost:8080/user/jjj@abc.com
+
+### 닉네임 중복 확인
+GET http://localhost:8080/user/nickname/Joo
+
+### 회원 정보 등록
+POST http://localhost:8080/user/
+Content-Type: application/json
+
+{
+  "data" : {
+    "user_name" : "서연"
+    , "email" : "seoyeon2@mail.com"
+    , "nickname" : "seoyeon2"
+    , "password" : "tjdusl123"
+    , "mobile" : "01098765423"
+  }
+}
+
+### 문제
+
 ###
+POST http://localhost:8080/problem
+Content-Type: application/json
 
+{
+  "data" : {
+     "level" : "C2001"
+  }
+}
 
+###
 GET http://localhost:8080/problem/1
 
 ###
+POST http://localhost:8080/answer
+Content-Type: application/json
+
+{
+    "data" : {
+        "problem_seq" : 1
+        , "language_code" : "C1001"
+        , "user_seq" : 1
+        , "answer" : "System.out.println('hello,');"
+        , "success_yn" : "N"
+        , "open_yn" : "Y"
+        , "time" : "23"
+        , "memory" : "20"
+    }
+}

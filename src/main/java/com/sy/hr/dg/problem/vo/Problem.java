@@ -50,6 +50,6 @@ public class Problem {
     @Column(updatable = false)
     private String output;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "problem")
-    private List<Answer> answerList;
+    /*@OneToMany(fetch = FetchType.LAZY, mappedBy = "problem")
+    private List<Answer> answerList;*/
 }

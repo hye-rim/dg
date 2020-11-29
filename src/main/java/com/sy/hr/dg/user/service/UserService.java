@@ -1,68 +1,64 @@
 package com.sy.hr.dg.user.service;
 
 import com.sy.hr.dg.model.network.Header;
-import com.sy.hr.dg.user.response.UserReadForEmailResponse;
-import com.sy.hr.dg.user.reuest.UserModifyRequest;
-import com.sy.hr.dg.user.reuest.UserRegistRequest;
 import com.sy.hr.dg.user.repository.UserRepository;
+import com.sy.hr.dg.user.request.UserModifyRequest;
+import com.sy.hr.dg.user.request.UserRegistRequest;
+import com.sy.hr.dg.user.response.UserDoubleCheckResponse;
+import com.sy.hr.dg.user.response.UserReadForEmailResponse;
 import com.sy.hr.dg.user.vo.User;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import static com.sy.hr.dg.model.network.Header.OK;
 
 @Service
 @Slf4j
-/**
- * @className UserService
- */
 public class UserService {
 
-    private final UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
-
-    /**
-     * @method doubleCheckEmail
-     * @author dream
-     * @since 2020-11-13
-     * @params
-     * @return
-     */
     public Long doubleCheckEmail(String email) {
-        System.out.println("UserService 진입");
-
         return userRepository.countByEmail( email );
     }
 
-
     public Header registUser(Header<UserRegistRequest> request) {
-
         log.info( "request => {}", request );
 
         UserRegistRequest userRegistRequest = request.getData();
 
         User user = User.builder()
-                         .userName( userRegistRequest.getUserName() )
-                         .email( userRegistRequest.getEmail() )
-                         .nickname( userRegistRequest.getNickname() )
-                         .password( userRegistRequest.getPassword() )
-                         .mobile( userRegistRequest.getMobile() )
-                         .build();
+                .userName( userRegistRequest.getUserName() )
+                .email( userRegistRequest.getEmail() )
+                .nickname( userRegistRequest.getNickname() )
+                .password( userRegistRequest.getPassword() )
+                .mobile( userRegistRequest.getMobile() )
+                .build();
 
         User newUser = userRepository.save( user );
 
         return OK();
     }
 
-    public Header<UserReadForEmailResponse> readUser(String email ) {
+    public Header<UserReadForEmailResponse> readUser(String email) {
         log.info("readUser email => {}", email);
 
-        UserReadForEmailResponse user = userRepository.findByEmail( email );
+        User user = userRepository.findByEmail( email );
 
-        return Header.OK(user);
+        UserReadForEmailResponse userApiResponse = UserReadForEmailResponse.builder()
+                .userName(user.getUserName())
+                .password(user.getPassword()) // todo 암호화, 길이
+                .email(user.getEmail())
+                .nickname(user.getNickname())
+                .mobile(user.getMobile())
+                .tryCount(user.getTryCount())
+                .successCount(user.getSuccessCount())
+                .deleteYn(user.getDeleteYn())
+                .build();
+
+        return Header.OK(userApiResponse);
     }
 
     public Header modifyUser(Header<UserModifyRequest> request) {
@@ -80,6 +76,24 @@ public class UserService {
 
         return Header.OK();
     }
+
+    public Header doubleCheckNickname(String nickname) {
+        log.info("doubleCheckNickname nickname => {}", nickname);
+
+        User user = userRepository.findByNickname( nickname );
+
+        log.info("doubleCheckNickname user => {}", user);
+
+        UserDoubleCheckResponse response = new UserDoubleCheckResponse();
+
+        if( user == null )
+            response.setDuplicateYn("Y");
+        else
+            response.setDuplicateYn("N");
+
+        return Header.OK( response );
+    }
+
 }
 
 

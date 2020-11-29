@@ -22,9 +22,9 @@ public class UserReadForEmailResponse {
 
     private String mobile;
 
-    private String tryCount;
+    private Integer tryCount;
 
-    private String successCount;
+    private Integer successCount;
 
     private String deleteYn;
 

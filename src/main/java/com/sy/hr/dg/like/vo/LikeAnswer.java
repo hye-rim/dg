@@ -25,9 +25,11 @@ public class LikeAnswer {
     private Long likeSeq;
 
     @ManyToOne
+//    @JoinColumn(name = "answer_seq")
     private Answer answer;
 
     @ManyToOne
+//    @JoinColumn(name = "user_seq")
     private User user;
 
     @CreatedDate
@@ -35,4 +37,5 @@ public class LikeAnswer {
 
     @LastModifiedDate
     private LocalDate updtDate;
+
 }
