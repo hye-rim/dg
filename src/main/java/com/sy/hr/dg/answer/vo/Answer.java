@@ -24,7 +24,7 @@ import java.util.List;
 @Setter
 @Builder
 @ToString(exclude = {"problem","user"})
-@Accessors(chain = true)
+//@Accessors(chain = true)
 public class Answer {
 
     @Id
