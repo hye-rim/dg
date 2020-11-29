@@ -1,20 +1,14 @@
 package com.sy.hr.dg.user.controller;
 
-import com.sy.hr.dg.common.ifs.CrudInterface;
 import com.sy.hr.dg.model.network.Header;
-import com.sy.hr.dg.model.network.request.user.UserFindEmailRequest;
-import com.sy.hr.dg.model.network.request.user.UserModifyRequest;
-import com.sy.hr.dg.model.network.request.user.UserReadForEmailRequest;
-import com.sy.hr.dg.model.network.request.user.UserRegistRequest;
-import com.sy.hr.dg.model.network.response.user.UserReadForEmailResponse;
+import com.sy.hr.dg.user.response.UserReadForEmailResponse;
+import com.sy.hr.dg.user.reuest.UserModifyRequest;
+import com.sy.hr.dg.user.reuest.UserRegistRequest;
 import com.sy.hr.dg.user.service.UserService;
-import com.sy.hr.dg.user.vo.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
 
 @RequestMapping("/user")
 @RestController
@@ -64,7 +58,7 @@ public class UserController {
 
     @GetMapping("/{email}")
     //public Header<UserReadForEmailResponse> readUser( @RequestBody Header<UserReadForEmailRequest> request ) {
-    public Header<UserReadForEmailResponse> readUser( @PathVariable String email ) {
+    public Header<UserReadForEmailResponse> readUser(@PathVariable String email ) {
         /**
          * @description 회원정보조회
          * @method readUser

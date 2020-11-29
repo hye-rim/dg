@@ -1,4 +1,4 @@
-package com.sy.hr.dg.model.network.request.user;
+package com.sy.hr.dg.user.reuest;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,12 +9,15 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class UserReadForSeqRequest {
+public class UserModifyRequest {
     /**
-     * @className UserReadForEmailRequest
-     * @description 회원 정보 조회, 회원 탈퇴
+     * @className UserModifyRequest
+     * @description 회원 정보 수정
      */
 
     private Long userSeq;
 
+    private String password;
+
+    private String mobile;
 }

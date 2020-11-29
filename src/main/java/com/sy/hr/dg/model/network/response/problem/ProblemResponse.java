@@ -2,6 +2,7 @@ package com.sy.hr.dg.model.network.response.problem;
 
 import java.time.LocalDate;
 
+import com.sy.hr.dg.user.vo.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,7 +17,7 @@ public class ProblemResponse {
 
     private Long problemSeq;
 
-    private String languageCode;
+    private Long userSeq;
 
     private String level;
 

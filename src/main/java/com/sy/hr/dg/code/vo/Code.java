@@ -1,18 +1,20 @@
-package com.sy.hr.dg.common.vo;
+package com.sy.hr.dg.code.vo;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
 @Data
-@Table(name="TB_COMMON_CODE")
 @AllArgsConstructor
 @NoArgsConstructor
-public class CodeVO {
+@EntityListeners(AuditingEntityListener.class)  //CreateDate, LastModifiedDate 사용 시 추가해야함
+@Getter
+@Setter
+@Builder
+public class Code {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

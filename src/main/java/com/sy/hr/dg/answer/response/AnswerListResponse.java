@@ -1,17 +1,19 @@
-package com.sy.hr.dg.model.network.response.user;
+package com.sy.hr.dg.answer.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-// 닉네임, 이메일 중복 확인 기능
-public class UserDuplicateResponse {
+// 답안 목록 조회
+public class AnswerListResponse {
 
-    private String duplicateYn;
+    private List<AnswerListResponse> answerList;
 
 }

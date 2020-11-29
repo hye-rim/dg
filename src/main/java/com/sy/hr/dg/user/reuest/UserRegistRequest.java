@@ -1,4 +1,4 @@
-package com.sy.hr.dg.model.network.request.user;
+package com.sy.hr.dg.user.reuest;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,14 +9,19 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class UserLoginRequest {
+public class UserRegistRequest {
     /**
-     * @className UserLoginRequest
-     * @description 로그인
+     * @className UserRegistRequest
+     * @description 회원 정보 등록
      */
+
+    private String userName;
 
     private String email;
 
+    private String nickname;
+
     private String password;
 
+    private String mobile;
 }

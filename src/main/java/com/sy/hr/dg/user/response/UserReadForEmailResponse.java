@@ -1,4 +1,4 @@
-package com.sy.hr.dg.model.network.response.user;
+package com.sy.hr.dg.user.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

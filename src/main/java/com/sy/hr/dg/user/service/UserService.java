@@ -1,10 +1,9 @@
 package com.sy.hr.dg.user.service;
 
 import com.sy.hr.dg.model.network.Header;
-import com.sy.hr.dg.model.network.request.user.UserModifyRequest;
-import com.sy.hr.dg.model.network.request.user.UserReadForEmailRequest;
-import com.sy.hr.dg.model.network.request.user.UserRegistRequest;
-import com.sy.hr.dg.model.network.response.user.UserReadForEmailResponse;
+import com.sy.hr.dg.user.response.UserReadForEmailResponse;
+import com.sy.hr.dg.user.reuest.UserModifyRequest;
+import com.sy.hr.dg.user.reuest.UserRegistRequest;
 import com.sy.hr.dg.user.repository.UserRepository;
 import com.sy.hr.dg.user.vo.User;
 import lombok.extern.slf4j.Slf4j;
@@ -58,7 +57,7 @@ public class UserService {
         return OK();
     }
 
-    public Header<UserReadForEmailResponse> readUser( String email ) {
+    public Header<UserReadForEmailResponse> readUser(String email ) {
         log.info("readUser email => {}", email);
 
         UserReadForEmailResponse user = userRepository.findByEmail( email );

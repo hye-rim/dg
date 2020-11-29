@@ -66,13 +66,13 @@ public class User {
 
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "user")
     private List<Problem> problemList;
-
-    @OneToMany(fetch = FetchType.LAZY ,mappedBy = "user")
-    private List<Answer> answerList;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-    private List<LikeAnswer> likeAnswerList;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-    private List<Email> emailList;
+//
+//    @OneToMany(fetch = FetchType.LAZY ,mappedBy = "user")
+//    private List<Answer> answerList;
+//
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+//    private List<LikeAnswer> likeAnswerList;
+//
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+//    private List<Email> emailList;
 }

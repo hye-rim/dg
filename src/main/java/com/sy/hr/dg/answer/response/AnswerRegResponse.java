@@ -1,21 +1,20 @@
-package com.sy.hr.dg.model.network.request.answer;
+package com.sy.hr.dg.answer.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class AnswerRegistRequest {
+// 답안 등록
+public class AnswerRegResponse {
 
-    private String problemSeq;
-
-    private String languageCode;
-
-    private String userSeq;
+    private String code;
 
     private String answer;
 
@@ -23,8 +22,12 @@ public class AnswerRegistRequest {
 
     private String openYn;
 
-    private String time;
+    private Long time;
 
-    private String memory;
+    private Long memory;
+
+    private Long problemSeq;
+
+    private Long userSeq;
 
 }
