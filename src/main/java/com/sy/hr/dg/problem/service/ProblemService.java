@@ -40,6 +40,44 @@ public class ProblemService {
         return Header.OK(problemResponse);
     }
 
+    public Header<ProblemResponse> readProblemList(Header<ProblemReadRequest> request) {
+
+        ProblemReadRequest problemReadRequest = request.getData();
+
+        log.info( "request -> {}", problemReadRequest );
+
+        List<Problem> problem = problemRepository.findAll(
+                new Specification<Problem>() {
+                    @Override
+                    public Predicate toPredicate(Root<Problem> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
+                        List<Predicate> predicates = new ArrayList<>();
+
+                        if( !StringUtils.isEmpty( problemReadRequest.getProblemTitle() ) )
+                            predicates.add( criteriaBuilder.like( root.get("problemTitle"), "%" + problemReadRequest.getProblemTitle() + "%" ) );
+
+                        if( !StringUtils.isEmpty( problemReadRequest.getLanguageCode() ) )
+                            predicates.add( criteriaBuilder.like( root.get("languageCode"), "%" + problemReadRequest.getLanguageCode() + "%" ) );
+
+                        if( !StringUtils.isEmpty( problemReadRequest.getLevel() ) )
+                            predicates.add( criteriaBuilder.like( root.get("level"), "%" + problemReadRequest.getLevel() + "%" ) );
+
+                        if( !StringUtils.isEmpty( problemReadRequest.getNickname() ) )
+                            predicates.add( criteriaBuilder.like( root.get("nickname"), "%" + problemReadRequest.getNickname() + "%" ) );
+
+                        return criteriaBuilder.and( predicates.toArray( new Predicate[ predicates.size() ] ) );
+                    }
+                }
+        );
+
+        log.info( "problemList -> {}", problem );
+
+        Stream<Problem> problemStream = problem.stream();
+        problemStream.forEach( p -> log.info( p.getProblemContents() ) );
+
+        /*ProblemListResponse problemListResponse =*/
+
+        return Header.OK();
+    }
 
 }
 

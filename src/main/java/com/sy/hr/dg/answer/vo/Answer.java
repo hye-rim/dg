@@ -1,15 +1,12 @@
 package com.sy.hr.dg.answer.vo;
 
-import com.sy.hr.dg.code.vo.Code;
 import com.sy.hr.dg.like.vo.LikeAnswer;
 import com.sy.hr.dg.problem.vo.Problem;
 import com.sy.hr.dg.user.vo.User;
 import lombok.*;
-import lombok.experimental.Accessors;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import sun.rmi.runtime.Log;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -65,6 +62,4 @@ public class Answer {
     @Column(updatable = false)
     private Long memory;
 
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "answer")
-    private List<LikeAnswer> likeAnswerList;
 }

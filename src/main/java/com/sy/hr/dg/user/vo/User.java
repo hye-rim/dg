@@ -25,6 +25,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Setter
 @Builder
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userSeq;
@@ -53,26 +54,15 @@ public class User {
     private Integer successCount;
 
     @CreatedDate
-    @Column(updatable = false)
+    @Column(insertable = false)
     private LocalDate regDate;
 
     @LastModifiedDate
-    @Column(insertable = false)
+    @Column(insertable = false, updatable = false)
     private LocalDate updtDate;
 
     //DB에 default value가 정해져 있으면 insertable=false 아니면 true , deleteYn default = N
     @Column(insertable = false, updatable = false)
     private String deleteYn;
 
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "user")
-    private List<Problem> problemList;
-//
-//    @OneToMany(fetch = FetchType.LAZY ,mappedBy = "user")
-//    private List<Answer> answerList;
-//
-//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-//    private List<LikeAnswer> likeAnswerList;
-//
-//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-//    private List<Email> emailList;
 }

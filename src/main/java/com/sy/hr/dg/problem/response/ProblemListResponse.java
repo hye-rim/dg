@@ -1,4 +1,4 @@
-package com.sy.hr.dg.model.network.response.problem;
+package com.sy.hr.dg.problem.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
