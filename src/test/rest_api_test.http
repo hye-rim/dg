@@ -12,7 +12,7 @@ Content-Type: application/json
 
 {
   "data" : {
-    "user_name" : "서연8"
+    "user_name" : "서연9"
     , "email" : "seoyeo1n2@naver.com"
     , "nickname" : "seoyeon3"
     , "password" : "tjdusl1233"
