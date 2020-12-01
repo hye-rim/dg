@@ -12,11 +12,11 @@ Content-Type: application/json
 
 {
   "data" : {
-    "user_name" : "서연"
-    , "email" : "seoyeon2@mail.com"
-    , "nickname" : "seoyeon2"
-    , "password" : "tjdusl123"
-    , "mobile" : "01098765423"
+    "user_name" : "서연8"
+    , "email" : "seoyeo1n2@naver.com"
+    , "nickname" : "seoyeon3"
+    , "password" : "tjdusl1233"
+    , "mobile" : "01198765423"
   }
 }
 
@@ -51,3 +51,5 @@ Content-Type: application/json
         , "memory" : "20"
     }
 }
+
+###

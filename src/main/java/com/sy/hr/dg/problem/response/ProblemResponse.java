@@ -1,6 +1,7 @@
 package com.sy.hr.dg.problem.response;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import com.sy.hr.dg.user.vo.User;
 import lombok.AllArgsConstructor;
@@ -25,9 +26,9 @@ public class ProblemResponse {
 
     private String problemContents;
 
-    private LocalDate regDate;
+    private LocalDateTime regDate;
 
-    private LocalDate updtDate;
+    private LocalDateTime updtDate;
 
     private String input;
 

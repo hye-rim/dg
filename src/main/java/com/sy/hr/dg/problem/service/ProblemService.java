@@ -33,6 +33,7 @@ public class ProblemService {
 
     public Header<ProblemResponse> readProblem(Long problemSeq ) {
 
+
         log.info("readProblem problemSeq => {}", problemSeq);
         Problem problem = problemRepository.findByProblemSeq( problemSeq );
         ProblemResponse problemResponse = ProblemResponse.builder()

@@ -5,6 +5,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Data
@@ -22,8 +23,8 @@ public class Code {
 
     private String codeGroup;
     private String codeDiscription;
-    private LocalDate regDate;
-    private LocalDate updtDate;
+    private LocalDateTime regDate;
+    private LocalDateTime updtDate;
     private String codeName;
 
 }

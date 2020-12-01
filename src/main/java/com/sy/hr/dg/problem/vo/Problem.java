@@ -9,6 +9,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -39,10 +40,10 @@ public class Problem {
     private String problemContents;
 
     @CreatedDate
-    private LocalDate regDate;
+    private LocalDateTime regDate;
 
     @LastModifiedDate
-    private LocalDate updtDate;
+    private LocalDateTime updtDate;
 
     @Column(updatable = false)
     private String input;

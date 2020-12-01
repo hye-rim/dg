@@ -6,15 +6,19 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sy.hr.dg.answer.vo.Answer;
 import com.sy.hr.dg.email.vo.Email;
 import com.sy.hr.dg.like.vo.LikeAnswer;
 import com.sy.hr.dg.problem.vo.Problem;
 
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.datetime.joda.LocalDateTimeParser;
 
 @Entity
 @Data
@@ -54,12 +58,13 @@ public class User {
     private Integer successCount;
 
     @CreatedDate
-    @Column(insertable = false)
-    private LocalDate regDate;
+    //@JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss", timezone="Asia/Seoul")
+   // @Column(insertable = false)
+    private LocalDateTime regDate;
 
     @LastModifiedDate
-    @Column(insertable = false, updatable = false)
-    private LocalDate updtDate;
+    //@Column(insertable = false, updatable = false)
+    private LocalDateTime updtDate;
 
     //DB에 default value가 정해져 있으면 insertable=false 아니면 true , deleteYn default = N
     @Column(insertable = false, updatable = false)

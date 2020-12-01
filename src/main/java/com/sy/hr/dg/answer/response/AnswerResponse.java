@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
@@ -22,9 +23,9 @@ public class AnswerResponse {
 
     private String answer;
 
-    private LocalDate regDate;
+    private LocalDateTime regDate;
 
-    private LocalDate updtDate;
+    private LocalDateTime updtDate;
 
     private String successYn;
 

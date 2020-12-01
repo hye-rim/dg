@@ -1,6 +1,5 @@
 package com.sy.hr.dg.answer.vo;
 
-import com.sy.hr.dg.code.vo.Code;
 import com.sy.hr.dg.like.vo.LikeAnswer;
 import com.sy.hr.dg.problem.vo.Problem;
 import com.sy.hr.dg.user.vo.User;
@@ -9,10 +8,10 @@ import lombok.experimental.Accessors;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import sun.rmi.runtime.Log;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -48,10 +47,12 @@ public class Answer {
     private String answer;
 
     @CreatedDate
-    private LocalDate regDate;
+   // @Column(insertable = false, updatable = false)
+    private LocalDateTime regDate;
 
     @LastModifiedDate
-    private LocalDate updtDate;
+    //@Column(insertable = false, updatable = false)
+    private LocalDateTime updtDate;
 
     @Column(insertable = false, updatable = false)
     private String successYn;
@@ -65,6 +66,4 @@ public class Answer {
     @Column(updatable = false)
     private Long memory;
 
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "answer")
-    private List<LikeAnswer> likeAnswerList;
 }
