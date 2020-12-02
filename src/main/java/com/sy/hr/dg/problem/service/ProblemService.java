@@ -56,7 +56,7 @@ public class ProblemService {
 
         log.info( "request -> {}", problemReadRequest );
 
-        List<Problem> problem = problemRepository.findAll(
+        List<Problem> problemList = problemRepository.findAll(
                 new Specification<Problem>() {
                     @Override
                     public Predicate toPredicate(Root<Problem> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
@@ -78,11 +78,9 @@ public class ProblemService {
                     }
                 }
         );
+        problemList.stream().forEach( p -> log.info( "title > " + p.getProblemContents() ) );
 
-        log.info( "problemList -> {}", problem );
-
-        Stream<Problem> problemStream = problem.stream();
-        problemStream.forEach( p -> log.info( p.getProblemContents() ) );
+        log.info( "problemList -> {}", problemList );
 
         /*ProblemListResponse problemListResponse =*/
 
