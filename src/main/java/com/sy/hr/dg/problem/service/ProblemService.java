@@ -3,6 +3,7 @@ package com.sy.hr.dg.problem.service;
 import com.sy.hr.dg.model.network.Header;
 import com.sy.hr.dg.problem.repository.ProblemRepository;
 import com.sy.hr.dg.problem.request.ProblemReadRequest;
+import com.sy.hr.dg.problem.response.ProblemListResponse;
 import com.sy.hr.dg.problem.response.ProblemResponse;
 import com.sy.hr.dg.problem.vo.Problem;
 import lombok.extern.slf4j.Slf4j;
@@ -50,7 +51,7 @@ public class ProblemService {
         return Header.OK(problemResponse);
     }
 
-    public Header<ProblemResponse> readProblemList(Header<ProblemReadRequest> request) {
+    public Header<ProblemListResponse> readProblemList(Header<ProblemReadRequest> request) {
 
         ProblemReadRequest problemReadRequest = request.getData();
 
@@ -81,12 +82,14 @@ public class ProblemService {
 
         log.info( "problemList -> {}", problem );
 
+        ProblemListResponse problemListResponse = new ProblemListResponse();
+
         Stream<Problem> problemStream = problem.stream();
-        problemStream.forEach( p -> log.info( p.getProblemContents() ) );
+        problemStream.forEach( p -> problemListResponse.builder().problemList((List<ProblemResponse>) p) );
 
-        /*ProblemListResponse problemListResponse =*/
+        log.info( "problemListResponse -> {}", problemListResponse );
 
-        return Header.OK();
+        return Header.OK( problemListResponse );
     }
 
 }
