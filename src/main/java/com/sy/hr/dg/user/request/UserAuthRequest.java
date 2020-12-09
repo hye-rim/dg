@@ -9,14 +9,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class UserFindEmailRequest {
-    /**
-     * @className UserFindEmailRequest
-     * @description 이메일 찾기
-     */
+public class UserAuthRequest {
+    
+    private Long userSeq;
 
-    private String userName;
+    private String email;
 
-    private String mobile;
-
+    private String authCode;
+    
 }

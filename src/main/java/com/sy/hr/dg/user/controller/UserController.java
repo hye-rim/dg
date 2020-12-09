@@ -1,8 +1,11 @@
 package com.sy.hr.dg.user.controller;
 
 import com.sy.hr.dg.model.network.Header;
+import com.sy.hr.dg.user.request.UserAuthRequest;
+import com.sy.hr.dg.user.request.UserFindEmailRequest;
 import com.sy.hr.dg.user.request.UserModifyRequest;
 import com.sy.hr.dg.user.request.UserRegistRequest;
+import com.sy.hr.dg.user.response.UserAuthResponse;
 import com.sy.hr.dg.user.response.UserReadForEmailResponse;
 import com.sy.hr.dg.user.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -98,5 +101,33 @@ public class UserController {
          */
         return userService.doubleCheckNickname( nickname );
     }
+
+    @PostMapping("/user/search-email")
+    public Header searchEmail( @RequestBody Header<UserFindEmailRequest> request  {
+        /**
+         * @description 이메일 찾기
+         * @method searchEmail
+         * @params [request]
+         * @return com.sy.hr.dg.model.network.Header
+         *
+         * @author sy
+         * @since 2020-12-06
+        */
+        return userService.searchEmail( request );
+    }
+
+    /*@PostMapping("/user/auth")
+    public Header<UserAuthResponse> authEmail( @RequestBody Header<UserAuthRequest> request ) {
+        *//**
+         * @description 이메일 인증
+         * @method authEmail
+         * @params [request]
+         * @return com.sy.hr.dg.model.network.Header<com.sy.hr.dg.user.response.UserAuthResponse>
+         *
+         * @author sy
+         * @since 2020-12-08
+        *//*
+        return userService.authEmail( request );
+    }*/
 
 }

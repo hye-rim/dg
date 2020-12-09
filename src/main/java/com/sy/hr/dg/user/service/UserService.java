@@ -2,8 +2,11 @@ package com.sy.hr.dg.user.service;
 
 import com.sy.hr.dg.model.network.Header;
 import com.sy.hr.dg.user.repository.UserRepository;
+import com.sy.hr.dg.user.request.UserAuthRequest;
+import com.sy.hr.dg.user.request.UserFindEmailRequest;
 import com.sy.hr.dg.user.request.UserModifyRequest;
 import com.sy.hr.dg.user.request.UserRegistRequest;
+import com.sy.hr.dg.user.response.UserAuthResponse;
 import com.sy.hr.dg.user.response.UserDoubleCheckResponse;
 import com.sy.hr.dg.user.response.UserReadForEmailResponse;
 import com.sy.hr.dg.user.vo.User;
@@ -96,6 +99,37 @@ public class UserService {
         return Header.OK( response );
     }
 
+    public Header searchEmail(Header<UserFindEmailRequest> request) {
+        log.info("serachEmail request => {}", request);
+
+        UserFindEmailRequest userFindEmailRequest = request.getData();
+
+        User user = User.builder()
+                    .userName( userFindEmailRequest.getUserName() )
+                    .mobile( userFindEmailRequest.getMobile() )
+                    .build();
+
+        User getUser = userRepository.findByNameAndMobile( user );
+
+        return Header.OK( getUser );
+    }
+
+    /*
+    public Header<UserAuthResponse> authEmail(Header<UserAuthRequest> request) {
+
+        UserAuthRequest userAuthRequest = request.getData();
+
+        User user = User.builder()
+                    .userSeq( userAuthRequest.getUserSeq() )
+                    .authCode( user );
+
+        User user = new User();
+
+        User getUser = userRepository.findByEmailAndAuthCode( user );
+
+        return Header.OK( getUser );
+    }
+    */
 }
 
 
