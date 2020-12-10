@@ -103,7 +103,7 @@ public class UserController {
     }
 
     @PostMapping("/user/search-email")
-    public Header searchEmail( @RequestBody Header<UserFindEmailRequest> request  {
+    public Header searchEmail( @RequestBody Header<UserFindEmailRequest> request ) {
         /**
          * @description 이메일 찾기
          * @method searchEmail

@@ -109,9 +109,9 @@ public class UserService {
                     .mobile( userFindEmailRequest.getMobile() )
                     .build();
 
-        User getUser = userRepository.findByNameAndMobile( user );
+        User getUser = userRepository.findByUserNameAndMobile( user.getUserName(), user.getMobile() );
 
-        return Header.OK( getUser );
+        return OK( getUser );
     }
 
     /*
