@@ -34,7 +34,6 @@ public class ProblemService {
 
     public Header<ProblemResponse> readProblem(Long problemSeq ) {
 
-
         log.info("readProblem problemSeq => {}", problemSeq);
         Problem problem = problemRepository.findByProblemSeq( problemSeq );
         ProblemResponse problemResponse = ProblemResponse.builder()
@@ -80,15 +79,10 @@ public class ProblemService {
                 }
         );
 
-        log.info( "problemList -> {}", problem );
-
-        ProblemListResponse problemListResponse = new ProblemListResponse();
+        List<ProblemResponse> problemList = new ArrayList<>();
 
         Stream<Problem> problemStream = problem.stream();
-        problemStream.map( ( p ) -> {
-            System.out.println( "problem -> " + p );
-            System.out.println( "problem.getProblemTitle -> " + p.getProblemTitle() );
-
+        problemStream.forEach( ( p ) -> {
             ProblemResponse problemResponse = ProblemResponse.builder()
                                                             .problemSeq( p.getProblemSeq() )
                                                             .userSeq( p.getUser().getUserSeq() )
@@ -102,11 +96,12 @@ public class ProblemService {
                                                             .status( p.getStatus() )
                                                             .build();
 
-            log.info( "problemResponse -> {}", problemResponse );
+            problemList.add( problemResponse );
 
-            return problemListResponse.getProblemList().add( problemResponse );
-            // stream 객체 사용방법 확인.... 객체를 담을수 있는지
+            log.info( "problemResponse -> {}", problemResponse );
         });
+
+        ProblemListResponse problemListResponse = ProblemListResponse.builder().problemList( problemList ).build();
 
         log.info( "problemListResponse -> {}", problemListResponse );
 
