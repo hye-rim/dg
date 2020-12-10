@@ -34,4 +34,6 @@ public class ProblemResponse {
 
     private String output;
 
+    private String status;
+
 }

@@ -85,7 +85,28 @@ public class ProblemService {
         ProblemListResponse problemListResponse = new ProblemListResponse();
 
         Stream<Problem> problemStream = problem.stream();
-        problemStream.forEach( p -> problemListResponse.builder().problemList((List<ProblemResponse>) p) );
+        problemStream.map( ( p ) -> {
+            System.out.println( "problem -> " + p );
+            System.out.println( "problem.getProblemTitle -> " + p.getProblemTitle() );
+
+            ProblemResponse problemResponse = ProblemResponse.builder()
+                                                            .problemSeq( p.getProblemSeq() )
+                                                            .userSeq( p.getUser().getUserSeq() )
+                                                            .level( p.getLevel() )
+                                                            .problemTitle( p.getProblemTitle() )
+                                                            .problemContents( p.getProblemContents() )
+                                                            .regDate( p.getRegDate() )
+                                                            .updtDate( p.getUpdtDate() )
+                                                            .input( p.getInput() )
+                                                            .output( p.getOutput() )
+                                                            .status( p.getStatus() )
+                                                            .build();
+
+            log.info( "problemResponse -> {}", problemResponse );
+
+            return problemListResponse.getProblemList().add( problemResponse );
+            // stream 객체 사용방법 확인.... 객체를 담을수 있는지
+        });
 
         log.info( "problemListResponse -> {}", problemListResponse );
 
