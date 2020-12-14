@@ -23,21 +23,34 @@ public class Email {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long emailSeq;
 
+    @Column(updatable = false)
     private String contents;
 
-    @Column(insertable = false , updatable = false)
+    @Column(insertable = false, updatable = false)
     private String sendYn;
 
-    @Column(insertable = false , updatable = false)
+    @Column(insertable = false)
     private String authYn;
 
     @CreatedDate
+    @Column(updatable = false)
     private LocalDateTime regDate;
 
     @LastModifiedDate
+    @Column(insertable = false)
     private LocalDateTime updtDate;
 
     @ManyToOne
+    @JoinColumn(name = "user_seq")
     private User user;
+
+    @Column(updatable = false)
+    private String sender;
+
+    @Column(updatable = false)
+    private String receiver;
+
+    @Column(updatable = false)
+    private String title;
 
 }

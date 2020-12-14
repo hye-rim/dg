@@ -1,20 +1,28 @@
 package com.sy.hr.dg.user.service;
 
+import com.sy.hr.dg.email.repository.EmailRepository;
+import com.sy.hr.dg.email.vo.Email;
 import com.sy.hr.dg.model.network.Header;
+import com.sy.hr.dg.problem.vo.Problem;
 import com.sy.hr.dg.user.repository.UserRepository;
-import com.sy.hr.dg.user.request.UserAuthRequest;
-import com.sy.hr.dg.user.request.UserFindEmailRequest;
-import com.sy.hr.dg.user.request.UserModifyRequest;
-import com.sy.hr.dg.user.request.UserRegistRequest;
-import com.sy.hr.dg.user.response.UserAuthResponse;
-import com.sy.hr.dg.user.response.UserDoubleCheckResponse;
-import com.sy.hr.dg.user.response.UserReadForEmailResponse;
+import com.sy.hr.dg.user.request.*;
+import com.sy.hr.dg.user.response.*;
 import com.sy.hr.dg.user.vo.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import javax.swing.text.html.Option;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Stream;
 
 import static com.sy.hr.dg.model.network.Header.OK;
 
@@ -25,8 +33,23 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public Long doubleCheckEmail(String email) {
-        return userRepository.countByEmail( email );
+    @Autowired
+    private EmailRepository emailRepository;
+
+    @Autowired
+    private JavaMailSender javaMailSender;
+
+    public Header<UserDoubleCheckResponse> doubleCheckEmail(String email) {
+
+        Optional<User> user = userRepository.findByEmail( email );
+
+        return user.map( u -> {
+            UserDoubleCheckResponse response = UserDoubleCheckResponse.builder().duplicateYn("Y").build();
+            return Header.OK( response );
+        }).orElseGet( () -> {
+            UserDoubleCheckResponse response = UserDoubleCheckResponse.builder().duplicateYn("N").build();
+            return Header.OK( response );
+        });
     }
 
     public Header registUser(Header<UserRegistRequest> request) {
@@ -50,20 +73,21 @@ public class UserService {
     public Header<UserReadForEmailResponse> readUser(String email) {
         log.info("readUser email => {}", email);
 
-        User user = userRepository.findByEmail( email );
+        Optional<User> user = userRepository.findByEmail( email );
 
-        UserReadForEmailResponse userApiResponse = UserReadForEmailResponse.builder()
-                .userName(user.getUserName())
-                .password(user.getPassword()) // todo 암호화, 길이
-                .email(user.getEmail())
-                .nickname(user.getNickname())
-                .mobile(user.getMobile())
-                .tryCount(user.getTryCount())
-                .successCount(user.getSuccessCount())
-                .deleteYn(user.getDeleteYn())
-                .build();
-
-        return Header.OK(userApiResponse);
+        return user.map( u -> {
+            UserReadForEmailResponse response = UserReadForEmailResponse.builder()
+                    .userName(u.getUserName())
+                    .password(u.getPassword()) // todo 암호화, 길이
+                    .email(u.getEmail())
+                    .nickname(u.getNickname())
+                    .mobile(u.getMobile())
+                    .tryCount(u.getTryCount())
+                    .successCount(u.getSuccessCount())
+                    .deleteYn(u.getDeleteYn())
+                    .build();
+            return Header.OK( response );
+        }).orElseGet( () -> Header.ERROR( "존재하지 않는 회원입니다." ) );
     }
 
     public Header modifyUser(Header<UserModifyRequest> request) {
@@ -82,24 +106,23 @@ public class UserService {
         return Header.OK();
     }
 
-    public Header doubleCheckNickname(String nickname) {
+    public Header<UserDoubleCheckResponse> doubleCheckNickname(String nickname) {
         log.info("doubleCheckNickname nickname => {}", nickname);
 
-        User user = userRepository.findByNickname( nickname );
+        Optional<User> user = userRepository.findByNickname( nickname );
 
         log.info("doubleCheckNickname user => {}", user);
 
-        UserDoubleCheckResponse response = new UserDoubleCheckResponse();
-
-        if( user == null )
-            response.setDuplicateYn("Y");
-        else
-            response.setDuplicateYn("N");
-
-        return Header.OK( response );
+        return user.map( u -> {
+            UserDoubleCheckResponse response = UserDoubleCheckResponse.builder().duplicateYn("Y").build();
+            return Header.OK( response );
+        }).orElseGet( () -> {
+            UserDoubleCheckResponse response = UserDoubleCheckResponse.builder().duplicateYn("N").build();
+            return Header.OK( response );
+        });
     }
 
-    public Header searchEmail(Header<UserFindEmailRequest> request) {
+    public Header<UserFindEmailResponse> searchEmail(Header<UserFindEmailRequest> request) {
         log.info("serachEmail request => {}", request);
 
         UserFindEmailRequest userFindEmailRequest = request.getData();
@@ -109,27 +132,76 @@ public class UserService {
                     .mobile( userFindEmailRequest.getMobile() )
                     .build();
 
-        User getUser = userRepository.findByUserNameAndMobile( user.getUserName(), user.getMobile() );
+        Optional<User> getUser = userRepository.findByUserNameAndMobile( user.getUserName(), user.getMobile() );
 
-        return OK( getUser );
+        return getUser.map( u -> {
+                    UserFindEmailResponse response = UserFindEmailResponse.builder().email( u.getEmail() ).build();
+                    return Header.OK( response );
+                })
+               .orElseGet( () -> Header.ERROR("존재하지 않는 회원입니다.") );
     }
 
-    /*
+    public Header<UserSendEmailResponse> sendEmail(Header<UserSendEmailRequest> request) {
+        // 1. 데이터
+        UserSendEmailRequest userSendEmailRequest = request.getData();
+
+        log.info( "userSEndEmailRequest -> {}", userSendEmailRequest );
+
+        // 2. 인증번호 생성 (6자리)
+        int num = (int)(Math.random() * (999999 - 100000 + 1)) + 100000;
+
+        String title = "[DG] 비밀 번호 변경 인증 번호";
+        String content = "인증 번호는 [" + num + "] 입니다.";
+
+        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+        simpleMailMessage.setTo( userSendEmailRequest.getEmail() );
+        simpleMailMessage.setSubject( title );
+        simpleMailMessage.setText( content );
+
+        javaMailSender.send( simpleMailMessage );
+
+        Optional<User> user = userRepository.findByEmail( userSendEmailRequest.getEmail() );
+
+        Email sendEmail = Email.builder()
+                          .sendYn( "Y" )
+                          .title( title )
+                          .contents( content )
+                          .receiver( userSendEmailRequest.getEmail() )
+                          .user( user.get() )
+                          .build();
+
+        emailRepository.save( sendEmail );
+
+        UserSendEmailResponse userSendEmailResponse = UserSendEmailResponse.builder()
+                                                      .sendYn( "Y" )
+                                                      .userSeq( user.get().getUserSeq() )
+                                                      .build();
+
+        return Header.OK( userSendEmailResponse );
+    }
+
     public Header<UserAuthResponse> authEmail(Header<UserAuthRequest> request) {
-
         UserAuthRequest userAuthRequest = request.getData();
+        UserAuthResponse userAuthResponse = new UserAuthResponse();
+        Optional<User> user = userRepository.findById( userAuthRequest.getUserSeq() );
+        Optional<Email> authEmail = emailRepository.findByContentsContaining( userAuthRequest.getAuthCode() );
 
-        User user = User.builder()
-                    .userSeq( userAuthRequest.getUserSeq() )
-                    .authCode( user );
+        return authEmail.map( auth -> {
+            Email updateEmail = Email.builder()
+                    .emailSeq( authEmail.get().getEmailSeq() )
+                    .user( user.get() )
+                    .authYn( "Y" )
+                    .build();
 
-        User user = new User();
+            emailRepository.save( updateEmail );
 
-        User getUser = userRepository.findByEmailAndAuthCode( user );
+            userAuthResponse.setAuthYn("Y");
+            userAuthResponse.setUserSeq( user.get().getUserSeq() );
 
-        return Header.OK( getUser );
+            return Header.OK( userAuthResponse );
+        })
+        .orElseGet(() -> Header.ERROR("일치하지 않는 인증번호 입니다.") );
     }
-    */
 }
 
 

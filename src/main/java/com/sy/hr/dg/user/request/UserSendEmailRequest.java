@@ -9,19 +9,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class UserRegistRequest {
+public class UserSendEmailRequest {
     /**
-     * @className UserRegistRequest
-     * @description 회원 등록 Request
+     * @className UserSendEmailRequest
+     * @description 이메일 전송 Request
      */
 
     private String userName;
 
     private String email;
 
-    private String nickname;
-
-    private String password;
-
-    private String mobile;
 }
