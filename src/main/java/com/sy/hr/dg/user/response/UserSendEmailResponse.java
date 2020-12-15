@@ -1,4 +1,4 @@
-package com.sy.hr.dg.user.request;
+package com.sy.hr.dg.user.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,14 +9,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class UserModifyPasswordRequest {
+public class UserSendEmailResponse {
     /**
-     * @className UserModifyPasswordRequest
-     * @description 비밀번호 변경
+     * @className UserSendEmailResponse
+     * @description 이메일 인증 메일 발송 Response
      */
+    private String sendYn;
 
     private Long userSeq;
-
-    private String password;
 
 }
