@@ -43,7 +43,6 @@ public class User {
     @Column(updatable = false)
     private String nickname;
 
-    @Column(updatable = false)
     private String password;
 
     @Column(updatable = false)
@@ -59,11 +58,11 @@ public class User {
 
     @CreatedDate
     //@JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss", timezone="Asia/Seoul")
-   // @Column(insertable = false)
+    @Column(updatable = false)
     private LocalDateTime regDate;
 
     @LastModifiedDate
-    //@Column(insertable = false, updatable = false)
+    @Column(insertable = false)
     private LocalDateTime updtDate;
 
     //DB에 default value가 정해져 있으면 insertable=false 아니면 true , deleteYn default = N

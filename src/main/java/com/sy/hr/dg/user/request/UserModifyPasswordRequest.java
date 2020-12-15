@@ -15,7 +15,7 @@ public class UserModifyPasswordRequest {
      * @description 비밀번호 변경
      */
 
-    private String email;
+    private Long userSeq;
 
     private String password;
 

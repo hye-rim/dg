@@ -128,7 +128,7 @@ public class UserController {
     @PostMapping("/auth")
     public Header<UserAuthResponse> authEmail( @RequestBody Header<UserAuthRequest> request ) {
         /**
-         * @description 전송된 이메일에 있는 인증 코드로 인증
+         * @description 이메일 인증 - 전송된 이메일에 있는 인증 코드로 인증
          * @method authEmail
          * @params [request]
          * @return com.sy.hr.dg.model.network.Header<com.sy.hr.dg.user.response.UserAuthResponse>
@@ -137,6 +137,20 @@ public class UserController {
          * @since 2020-12-08
         */
         return userService.authEmail( request );
+    }
+
+    @PutMapping("/password")
+    public Header changePassword( @RequestBody Header<UserModifyPasswordRequest> request ) {
+        /**
+         * @description 비밀번호 변경 - 이메일 인증 후 비밀번호 변경
+         * @method changePassword
+         * @params [request]
+         * @return com.sy.hr.dg.model.network.Header
+         *
+         * @author sy
+         * @since 2020-12-15
+        */
+        return userService.changePassword( request );
     }
 
 }

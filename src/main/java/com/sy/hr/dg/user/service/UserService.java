@@ -202,6 +202,21 @@ public class UserService {
         })
         .orElseGet(() -> Header.ERROR("일치하지 않는 인증번호 입니다.") );
     }
+
+    public Header changePassword(Header<UserModifyPasswordRequest> request) {
+        UserModifyPasswordRequest userModifyPasswordRequest = request.getData();
+
+        //Optional<User> user = userRepository.findById( userModifyPasswordRequest.getUserSeq() );
+
+        User changePasswordUser = User.builder()
+                                  .userSeq( userModifyPasswordRequest.getUserSeq() )
+                                  .password( userModifyPasswordRequest.getPassword() )
+                                  .build();
+
+        userRepository.save( changePasswordUser );
+
+        return Header.OK();
+    }
 }
 
 

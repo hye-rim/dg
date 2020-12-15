@@ -59,6 +59,17 @@ Content-Type: application/json
   }
 }
 
+### 인증코드 입력 후 비밀번호 변경
+PUT http://localhost:8080/user/password
+Content-Type: application/json
+
+{
+  "data" : {
+    "user_seq" : "15"
+    , "password" : "dream1004!@#"
+  }
+}
+
 ### 문제 ==================================================================================
 
 ### 문제 목록 조회
