@@ -32,7 +32,7 @@ public class AnswerController {
          * @author hr
          * @since 2020-12-15
          */
-        log.info( "request => {}", request );
+        log.info( "registAnswer request => {}", request );
         return answerService.registAnswer( request );
     }
 
@@ -49,5 +49,19 @@ public class AnswerController {
          * @since 2020-12-15
          */
         return answerService.readAnswer(answerSeq);
+    }
+
+    @DeleteMapping("{answerSeq}")
+    public Header deleteAnswer(@PathVariable Long answerSeq) {
+       /**
+        * @description 답안 삭제
+        * @method deleteAnswer
+        * @params [answerSeq] 삭제할 답안 번호
+        * @return com.sy.hr.dg.model.network.Header
+        *
+        * @author hr
+        * @since 2020-12-16
+        */
+        return answerService.deleteAnswer(answerSeq);
     }
 }

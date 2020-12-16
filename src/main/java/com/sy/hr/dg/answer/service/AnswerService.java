@@ -15,6 +15,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 import static com.sy.hr.dg.model.network.Header.OK;
 
 @Service
@@ -65,20 +67,36 @@ public class AnswerService {
 
     public Header<AnswerResponse> readAnswer(Long answerSeq) {
         log.info("readAnswer answerSeq => {}", answerSeq);
-        Answer answer = answerRepository.findByAnswerSeq( answerSeq );
-        AnswerResponse answerResponse = AnswerResponse.builder()
-                .answerSeq(answer.getAnswerSeq())
-                .languageCode(answer.getLanguageCode())
-                .email(answer.getUser().getEmail())
-                .answer(answer.getAnswer())
-                .memory(answer.getMemory())
-                .openYn(answer.getOpenYn())
-                .regDate(answer.getRegDate())
-                .successYn(answer.getSuccessYn())
-                .time(answer.getTime())
-                .updtDate(answer.getUpdtDate())
-                .build();
-        return Header.OK(answerResponse);
+        return answerRepository.findByAnswerSeq( answerSeq )
+                .map(answer -> {
+                        AnswerResponse answerResponse = AnswerResponse.builder()
+                            .answerSeq(answer.getAnswerSeq())
+                            .languageCode(answer.getLanguageCode())
+                            .email(answer.getUser().getEmail())
+                            .answer(answer.getAnswer())
+                            .memory(answer.getMemory())
+                            .openYn(answer.getOpenYn())
+                            .regDate(answer.getRegDate())
+                            .successYn(answer.getSuccessYn())
+                            .time(answer.getTime())
+                            .updtDate(answer.getUpdtDate())
+                            .build();
+
+                    return Header.OK(answerResponse);
+                })
+                .orElseGet(
+                        ()->Header.ERROR("No Data")
+                );
+    }
+
+    public Header deleteAnswer(Long answerSeq) {
+        Optional<Answer> optional = answerRepository.findByAnswerSeq(answerSeq);
+        return optional.map(answer ->{
+            answerRepository.delete(answer);
+            return Header.OK();
+        }).orElseGet(()->Header.ERROR("No Data"));
+
+
     }
 }
 

@@ -99,5 +99,9 @@ Content-Type: application/json
 
 
 ### 답안 상세 조회
-GET http://localhost:8080/answer/1
+GET http://localhost:8080/answer/3
+###
+
+### 답안 삭제
+DELETE http://localhost:8080/answer/11
 ###
