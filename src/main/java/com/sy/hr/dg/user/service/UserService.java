@@ -3,26 +3,18 @@ package com.sy.hr.dg.user.service;
 import com.sy.hr.dg.email.repository.EmailRepository;
 import com.sy.hr.dg.email.vo.Email;
 import com.sy.hr.dg.model.network.Header;
-import com.sy.hr.dg.problem.vo.Problem;
 import com.sy.hr.dg.user.repository.UserRepository;
 import com.sy.hr.dg.user.request.*;
 import com.sy.hr.dg.user.response.*;
 import com.sy.hr.dg.user.vo.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-import javax.swing.text.html.Option;
-import java.util.List;
+import javax.transaction.Transactional;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 import static com.sy.hr.dg.model.network.Header.OK;
 
@@ -200,7 +192,7 @@ public class UserService {
 
             return Header.OK( userAuthResponse );
         })
-        .orElseGet(() -> Header.ERROR("일치하지 않는 인증번호 입니다.") );
+        .orElseGet(() -> Header.ERROR("일치하지 않는 인증 번호 입니다.") );
     }
 
     public Header changePassword(Header<UserModifyPasswordRequest> request) {
@@ -214,6 +206,18 @@ public class UserService {
                                   .build();
 
         userRepository.save( changePasswordUser );
+
+        return Header.OK();
+    }
+
+    @Transactional
+    public Header withdrawalUser(Long userSeq) {
+        User withdrawalUser = User.builder()
+                              .userSeq( userSeq )
+                              .deleteYn( "Y" )
+                              .build();
+
+        userRepository.save( withdrawalUser );
 
         return Header.OK();
     }

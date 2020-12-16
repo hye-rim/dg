@@ -6,7 +6,6 @@ import com.sy.hr.dg.user.response.*;
 import com.sy.hr.dg.user.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/user")
@@ -151,6 +150,20 @@ public class UserController {
          * @since 2020-12-15
         */
         return userService.changePassword( request );
+    }
+
+    @PutMapping("/{userSeq}")
+    public Header withdrawalUser( @PathVariable Long userSeq ) {
+        /**
+         * @description 회원 탈퇴
+         * @method withdrawalUser
+         * @params [userSeq]
+         * @return com.sy.hr.dg.model.network.Header
+         *
+         * @author sy
+         * @since 2020-12-15
+        */
+        return userService.withdrawalUser( userSeq );
     }
 
 }
