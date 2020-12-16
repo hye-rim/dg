@@ -80,6 +80,9 @@ Content-Type: application/json
 ### 문제 상세 조회
 GET http://localhost:8080/problem/1
 
+
+### 답안 ==================================================================================
+
 ### 답안 목록 조회
 POST http://localhost:8080/answer
 Content-Type: application/json
@@ -104,4 +107,20 @@ GET http://localhost:8080/answer/3
 
 ### 답안 삭제
 DELETE http://localhost:8080/answer/11
+###
+
+
+### 좋아요 ==================================================================================
+
+### 좋아요
+POST http://localhost:8080/like/
+Content-Type: application/json
+
+{
+  "data" : {
+    "answer_seq" : 1
+  , "user_seq" : 1
+  }
+}
+
 ###
