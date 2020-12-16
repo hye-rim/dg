@@ -64,11 +64,4 @@ public class Answer {
     @OneToMany(mappedBy = "answer")
     private Collection<LikeAnswer> likeAnswer;
 
-    public Collection<LikeAnswer> getLikeAnswer() {
-        return likeAnswer;
-    }
-
-    public void setLikeAnswer(Collection<LikeAnswer> likeAnswer) {
-        this.likeAnswer = likeAnswer;
-    }
 }
