@@ -5,6 +5,8 @@ import com.sy.hr.dg.answer.response.AnswerRegResponse;
 import com.sy.hr.dg.answer.response.AnswerResponse;
 import com.sy.hr.dg.answer.vo.Answer;
 import com.sy.hr.dg.code.repository.CodeRepository;
+import com.sy.hr.dg.like.repository.LikeRepository;
+import com.sy.hr.dg.like.vo.LikeAnswer;
 import com.sy.hr.dg.model.network.Header;
 import com.sy.hr.dg.answer.request.AnswerRegistRequest;
 import com.sy.hr.dg.problem.repository.ProblemRepository;
@@ -33,6 +35,9 @@ public class AnswerService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private LikeRepository likeRepository;
 
     @Autowired
     private CodeRepository codeRepository;
@@ -95,8 +100,6 @@ public class AnswerService {
             answerRepository.delete(answer);
             return Header.OK();
         }).orElseGet(()->Header.ERROR("No Data"));
-
-
     }
 }
 

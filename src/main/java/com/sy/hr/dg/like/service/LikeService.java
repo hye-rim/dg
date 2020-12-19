@@ -55,6 +55,14 @@ public class LikeService {
 
         return OK();
     }
+
+    public Header hateAnser(Long likeSeq) {
+        Optional<LikeAnswer> optional = likeRepository.findByLikeSeq(likeSeq);
+        return optional.map(likeAnswer ->{
+            likeRepository.delete(likeAnswer);
+            return Header.OK();
+        }).orElseGet(()->Header.ERROR("No Data"));
+    }
 }
 
 
