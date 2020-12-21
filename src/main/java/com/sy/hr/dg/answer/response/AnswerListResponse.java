@@ -14,6 +14,6 @@ import java.util.List;
 // 답안 목록 조회
 public class AnswerListResponse {
 
-    private List<AnswerListResponse> answerList;
+    private List<AnswerResponse> answerList;
 
 }

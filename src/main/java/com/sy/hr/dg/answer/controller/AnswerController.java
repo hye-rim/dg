@@ -1,10 +1,11 @@
 package com.sy.hr.dg.answer.controller;
 
+import com.sy.hr.dg.answer.request.AnswerListRequest;
+import com.sy.hr.dg.answer.request.AnswerRegistRequest;
+import com.sy.hr.dg.answer.response.AnswerListResponse;
 import com.sy.hr.dg.answer.response.AnswerResponse;
 import com.sy.hr.dg.answer.service.AnswerService;
 import com.sy.hr.dg.model.network.Header;
-import com.sy.hr.dg.answer.request.AnswerRegistRequest;
-import com.sy.hr.dg.problem.response.ProblemResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +19,20 @@ public class AnswerController {
 
     public AnswerController(AnswerService answerService) {
         this.answerService = answerService;
+    }
+
+    @PostMapping("/list")
+    public Header<AnswerListResponse> readAnswerList( @RequestBody Header<AnswerListRequest> request ) {
+        /**
+         * @description 답안 목록 조회
+         * @method readAnswerList
+         * @params [request]
+         * @return com.sy.hr.dg.model.network.Header<com.sy.hr.dg.answer.response.AnswerListResponse>
+         *
+         * @author sy
+         * @since 2020-12-16
+        */
+        return answerService.readAnswerList( request );
     }
 
     @PostMapping
