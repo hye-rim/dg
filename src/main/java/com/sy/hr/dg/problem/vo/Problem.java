@@ -1,8 +1,9 @@
 package com.sy.hr.dg.problem.vo;
 
-import com.sy.hr.dg.answer.vo.Answer;
 import com.sy.hr.dg.user.vo.User;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -14,7 +15,6 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@EntityListeners(AuditingEntityListener.class)  //CreateDate, LastModifiedDate 사용 시 추가해야함
 @Getter
 @Setter
 @Builder
@@ -24,6 +24,8 @@ public class Problem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long problemSeq;
 
+    /*@ManyToOne(optional = false)
+    @JoinColumn(name = "user_seq", foreignKey = @ForeignKey( name = "FK_TB_USER_TO_TB_PROBLEM" ))*/
     @ManyToOne
     @JoinColumn(name = "user_seq")
     private User user;
@@ -37,10 +39,10 @@ public class Problem {
     @Column(updatable = false)
     private String problemContents;
 
-    @CreatedDate
+    @CreationTimestamp
     private LocalDateTime regDate;
 
-    @LastModifiedDate
+    @UpdateTimestamp
     private LocalDateTime updtDate;
 
     @Column(updatable = false)
