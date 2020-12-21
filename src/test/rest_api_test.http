@@ -12,11 +12,23 @@ Content-Type: application/json
 
 {
   "data" : {
-    "user_name" : "서연9"
-    , "email" : "seoyeo1n2@naver.com"
-    , "nickname" : "seoyeon34"
-    , "password" : "tjdusl1233"
-    , "mobile" : "01198765423"
+    "user_name" : "정서연16"
+    , "email" : "tjdusl111@naver.com"
+    , "nickname" : "서여니"
+    , "password" : "dream1004!"
+    , "mobile" : "01077778888"
+  }
+}
+
+### 회원 정보 수정
+PUT http://localhost:8080/user
+Content-Type: application/json
+
+{
+  "data" : {
+    "user_seq" : "34"
+  , "password" : "dream1004!123"
+  , "mobile" : "01099998888"
   }
 }
 
@@ -78,6 +90,7 @@ Content-Type: application/json
 {
   "data" : {
      "level" : "C2001"
+    , "user_seq" : "15"
   }
 }
 
@@ -88,19 +101,15 @@ GET http://localhost:8080/problem/1
 ### 답안 ==================================================================================
 
 ### 답안 목록 조회
-POST http://localhost:8080/answer
+POST http://localhost:8080/answer/list
 Content-Type: application/json
 
 {
     "data" : {
         "problem_seq" : 1
         , "language_code" : "C1001"
-        , "user_seq" : 1
-        , "answer" : "System.out.println('hello,');"
+        , "user_seq" : 15
         , "success_yn" : "N"
-        , "open_yn" : "Y"
-        , "time" : "23"
-        , "memory" : "20"
     }
 }
 
