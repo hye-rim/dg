@@ -1,5 +1,6 @@
 package com.sy.hr.dg.user.response;
 
+import com.sy.hr.dg.user.vo.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

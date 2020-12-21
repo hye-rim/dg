@@ -48,16 +48,7 @@ public class UserService {
         log.info( "request => {}", request );
 
         UserRegistRequest userRegistRequest = request.getData();
-
-        User user = User.builder()
-                .userName( userRegistRequest.getUserName() )
-                .email( userRegistRequest.getEmail() )
-                .nickname( userRegistRequest.getNickname() )
-                .password( userRegistRequest.getPassword() )
-                .mobile( userRegistRequest.getMobile() )
-                .build();
-
-        User newUser = userRepository.save( user );
+        User newUser = userRepository.save( userRegistRequest.getUser() );
 
         return OK();
     }
@@ -85,15 +76,8 @@ public class UserService {
     public Header modifyUser(Header<UserModifyRequest> request) {
         log.info("modifyUser request => {}", request);
 
-        UserModifyRequest uerModifyRequest = request.getData();
-
-        User user = User.builder()
-                .userSeq( uerModifyRequest.getUserSeq() )
-                .password( uerModifyRequest.getPassword() )
-                .mobile( uerModifyRequest.getMobile() )
-                .build();
-
-        userRepository.save(user);
+        UserModifyRequest userModifyRequest = request.getData();
+        userRepository.save( userModifyRequest.getUser() );
 
         return Header.OK();
     }
@@ -118,13 +102,7 @@ public class UserService {
         log.info("serachEmail request => {}", request);
 
         UserFindEmailRequest userFindEmailRequest = request.getData();
-
-        User user = User.builder()
-                    .userName( userFindEmailRequest.getUserName() )
-                    .mobile( userFindEmailRequest.getMobile() )
-                    .build();
-
-        Optional<User> getUser = userRepository.findByUserNameAndMobile( user.getUserName(), user.getMobile() );
+        Optional<User> getUser = userRepository.findByUserNameAndMobile( userFindEmailRequest.getUserName(), userFindEmailRequest.getMobile() );
 
         return getUser.map( u -> {
                     UserFindEmailResponse response = UserFindEmailResponse.builder().email( u.getEmail() ).build();
@@ -137,7 +115,7 @@ public class UserService {
         // 1. 데이터
         UserSendEmailRequest userSendEmailRequest = request.getData();
 
-        log.info( "userSEndEmailRequest -> {}", userSendEmailRequest );
+        log.info( "userSendEmailRequest -> {}", userSendEmailRequest );
 
         // 2. 인증번호 생성 (6자리)
         int num = (int)(Math.random() * (999999 - 100000 + 1)) + 100000;
@@ -150,17 +128,11 @@ public class UserService {
         simpleMailMessage.setSubject( title );
         simpleMailMessage.setText( content );
 
-        javaMailSender.send( simpleMailMessage );
+        //javaMailSender.send( simpleMailMessage );
 
         Optional<User> user = userRepository.findByEmail( userSendEmailRequest.getEmail() );
 
-        Email sendEmail = Email.builder()
-                          .sendYn( "Y" )
-                          .title( title )
-                          .contents( content )
-                          .receiver( userSendEmailRequest.getEmail() )
-                          .user( user.get() )
-                          .build();
+        Email sendEmail = userSendEmailRequest.sendEmailInfo( "Y", title, content, user.get() );
 
         emailRepository.save( sendEmail );
 
@@ -174,21 +146,22 @@ public class UserService {
 
     public Header<UserAuthResponse> authEmail(Header<UserAuthRequest> request) {
         UserAuthRequest userAuthRequest = request.getData();
-        UserAuthResponse userAuthResponse = new UserAuthResponse();
         Optional<User> user = userRepository.findById( userAuthRequest.getUserSeq() );
         Optional<Email> authEmail = emailRepository.findByContentsContaining( userAuthRequest.getAuthCode() );
 
         return authEmail.map( auth -> {
             Email updateEmail = Email.builder()
-                    .emailSeq( authEmail.get().getEmailSeq() )
-                    .user( user.get() )
-                    .authYn( "Y" )
-                    .build();
+                                    .emailSeq( authEmail.get().getEmailSeq() )
+                                    .user( user.get() )
+                                    .authYn( "Y" )
+                                    .build();
 
             emailRepository.save( updateEmail );
 
-            userAuthResponse.setAuthYn("Y");
-            userAuthResponse.setUserSeq( user.get().getUserSeq() );
+            UserAuthResponse userAuthResponse = UserAuthResponse.builder()
+                                                .authYn( "Y" )
+                                                .userSeq( user.get().getUserSeq() )
+                                                .build();
 
             return Header.OK( userAuthResponse );
         })
@@ -198,14 +171,9 @@ public class UserService {
     public Header changePassword(Header<UserModifyPasswordRequest> request) {
         UserModifyPasswordRequest userModifyPasswordRequest = request.getData();
 
-        //Optional<User> user = userRepository.findById( userModifyPasswordRequest.getUserSeq() );
+        User user = userModifyPasswordRequest.getUser();
 
-        User changePasswordUser = User.builder()
-                                  .userSeq( userModifyPasswordRequest.getUserSeq() )
-                                  .password( userModifyPasswordRequest.getPassword() )
-                                  .build();
-
-        userRepository.save( changePasswordUser );
+        userRepository.save( user );
 
         return Header.OK();
     }
@@ -219,7 +187,7 @@ public class UserService {
 
         userRepository.save( withdrawalUser );
 
-        return Header.OK();
+        return Header.OK( );
     }
 }
 

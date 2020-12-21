@@ -1,54 +1,62 @@
 package com.sy.hr.dg.user.vo;
 
 import lombok.*;
-import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.*;
+//import org.hibernate.annotations.Entity;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
 import java.time.LocalDateTime;
 
 @Entity
-@Data
+@DynamicUpdate  // save() 메서드 사용 시 해당 테이블 컬럼의 default 값이 적용 되지 않아 문제가 발생 함 이때 @DynamicUpdate 를 추가하면 정상적으로 작동
+//@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@EntityListeners(AuditingEntityListener.class)  //CreateDate, LastModifiedDate 사용 시 추가해야 함
 @Getter
 @Setter
 @Builder
-@DynamicUpdate  // save() 메서드 사용 시 해당 테이블 컬럼의 default 값이 적용 되지 않아 문제가 발생 함 이때 @DynamicUpdate 를 추가하면 정상적으로 작동
-//@SelectBeforeUpdate
+@DynamicInsert
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_seq")
     private Long userSeq;
 
+    @Column
     private String userName;
 
+    @Column(insertable=false, updatable=false)
     private String email;
 
+    @Column(insertable=false, updatable=false)
     private String nickname;
 
+    @Column(insertable=false, updatable=false)
     private String password;
 
+    @Column
     private String mobile;
 
-    //DB에 default value가 정해져 있으면 insertable=false 아니면 true , tryCount default = 0
+    @Column(columnDefinition = "0")
     private Integer tryCount;
 
-    //DB에 default value가 정해져 있으면 insertable=false 아니면 true , successCount default = 0
-    //@Column(insertable = false, updatable = false)
+    @Column(columnDefinition = "0")
     private Integer successCount;
 
-    @CreatedDate
+    @Column
+    @CreationTimestamp
     private LocalDateTime regDate;
 
-    @LastModifiedDate
+    @Column
+    @UpdateTimestamp
     private LocalDateTime updtDate;
 
-    //DB에 default value가 정해져 있으면 insertable=false 아니면 true , deleteYn default = N
+    @Column(columnDefinition = "N")
     private String deleteYn;
 
 }
