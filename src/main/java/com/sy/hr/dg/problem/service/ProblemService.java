@@ -6,15 +6,15 @@ import com.sy.hr.dg.problem.request.ProblemReadRequest;
 import com.sy.hr.dg.problem.response.ProblemListResponse;
 import com.sy.hr.dg.problem.response.ProblemResponse;
 import com.sy.hr.dg.problem.vo.Problem;
+import com.sy.hr.dg.user.repository.UserRepository;
+import com.sy.hr.dg.user.vo.User;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
@@ -26,11 +26,11 @@ import java.util.stream.Stream;
  */
 public class ProblemService {
 
-    private final ProblemRepository problemRepository;
+    @Autowired
+    private ProblemRepository problemRepository;
 
-    public ProblemService(ProblemRepository problemRepository) {
-        this.problemRepository = problemRepository;
-    }
+    @Autowired
+    private UserRepository userRepository;
 
     public Header<ProblemResponse> readProblem(Long problemSeq ) {
 
@@ -61,6 +61,7 @@ public class ProblemService {
                     @Override
                     public Predicate toPredicate(Root<Problem> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
                         List<Predicate> predicates = new ArrayList<>();
+                        Join<User, Problem> userProblemJoin = root.join("user");
 
                         if( !StringUtils.isEmpty( problemReadRequest.getProblemTitle() ) )
                             predicates.add( criteriaBuilder.like( root.get("problemTitle"), "%" + problemReadRequest.getProblemTitle() + "%" ) );
@@ -73,6 +74,10 @@ public class ProblemService {
 
                         if( !StringUtils.isEmpty( problemReadRequest.getNickname() ) )
                             predicates.add( criteriaBuilder.like( root.get("nickname"), "%" + problemReadRequest.getNickname() + "%" ) );
+
+                        if( !StringUtils.isEmpty( problemReadRequest.getUserSeq() ) )
+                            predicates.add( criteriaBuilder.equal( userProblemJoin.get("userSeq"), problemReadRequest.getUserSeq() ) );
+                            //predicates.add( criteriaBuilder.and( userProblemJoin.get("userSeq"), problemReadRequest.getUserSeq() ) );
 
                         return criteriaBuilder.and( predicates.toArray( new Predicate[ predicates.size() ] ) );
                     }

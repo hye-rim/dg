@@ -1,5 +1,7 @@
 package com.sy.hr.dg.user.request;
 
+import com.sy.hr.dg.email.vo.Email;
+import com.sy.hr.dg.user.vo.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,4 +21,13 @@ public class UserSendEmailRequest {
 
     private String email;
 
+    public Email sendEmailInfo(String sendYn, String title, String content, User user ) {
+        return  Email.builder()
+                .sendYn( sendYn )
+                .title( title )
+                .contents( content )
+                .receiver( email )
+                .user( user )
+                .build();
+    }
 }

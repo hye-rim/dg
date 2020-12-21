@@ -1,72 +1,62 @@
 package com.sy.hr.dg.user.vo;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.List;
-
-import javax.persistence.*;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.sy.hr.dg.answer.vo.Answer;
-import com.sy.hr.dg.email.vo.Email;
-import com.sy.hr.dg.like.vo.LikeAnswer;
-import com.sy.hr.dg.problem.vo.Problem;
-
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.*;
+//import org.hibernate.annotations.Entity;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.format.datetime.joda.LocalDateTimeParser;
+
+import javax.persistence.*;
+import javax.persistence.Entity;
+import java.time.LocalDateTime;
 
 @Entity
-@Data
+@DynamicUpdate  // save() 메서드 사용 시 해당 테이블 컬럼의 default 값이 적용 되지 않아 문제가 발생 함 이때 @DynamicUpdate 를 추가하면 정상적으로 작동
+//@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@EntityListeners(AuditingEntityListener.class)  //CreateDate, LastModifiedDate 사용 시 추가해야함
 @Getter
 @Setter
 @Builder
+@DynamicInsert
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_seq")
     private Long userSeq;
 
-    @Column(updatable = false)
+    @Column
     private String userName;
 
-    @Column(updatable = false)
+    @Column(insertable=false, updatable=false)
     private String email;
 
-    @Column(updatable = false)
+    @Column(insertable=false, updatable=false)
     private String nickname;
 
+    @Column(insertable=false, updatable=false)
     private String password;
 
-    @Column(updatable = false)
+    @Column
     private String mobile;
 
-    //DB에 default value가 정해져 있으면 insertable=false 아니면 true , tryCount default = 0
-    @Column(insertable = false, updatable = false)
+    @Column(columnDefinition = "0")
     private Integer tryCount;
 
-    //DB에 default value가 정해져 있으면 insertable=false 아니면 true , successCount default = 0
-    @Column(insertable = false, updatable = false)
+    @Column(columnDefinition = "0")
     private Integer successCount;
 
-    @CreatedDate
-    //@JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss", timezone="Asia/Seoul")
-    @Column(updatable = false)
+    @Column
+    @CreationTimestamp
     private LocalDateTime regDate;
 
-    @LastModifiedDate
-    @Column(insertable = false)
+    @Column
+    @UpdateTimestamp
     private LocalDateTime updtDate;
 
-    //DB에 default value가 정해져 있으면 insertable=false 아니면 true , deleteYn default = N
-    @Column(insertable = false, updatable = false)
+    @Column(columnDefinition = "N")
     private String deleteYn;
 
 }
