@@ -75,21 +75,27 @@ public class AnswerService {
 
     public Header<AnswerResponse> readAnswer(Long answerSeq) {
         log.info("readAnswer answerSeq => {}", answerSeq);
+
+        //1 . 답안번호로 답안 조회
+        //2.  답안 좋아요 갯수 조회
+        //3.  내가 좋아요를 했는지
         return answerRepository.findByAnswerSeq( answerSeq )
                 .map(answer -> {
-                        AnswerResponse answerResponse = AnswerResponse.builder()
-                            .answerSeq(answer.getAnswerSeq())
-                            .languageCode(answer.getLanguageCode())
-                            .email(answer.getUser().getEmail())
-                            .answer(answer.getAnswer())
-                            .memory(answer.getMemory())
-                            .openYn(answer.getOpenYn())
-                            .regDate(answer.getRegDate())
-                            .successYn(answer.getSuccessYn())
-                            .time(answer.getTime())
-                            .updtDate(answer.getUpdtDate())
-                            .build();
-
+                    AnswerResponse answerResponse = AnswerResponse.builder()
+                        .userSeq(answer.getUser().getUserSeq())
+                        .answerSeq(answer.getAnswerSeq())
+                        .languageCode(answer.getLanguageCode())
+                        .email(answer.getUser().getEmail())
+                        .answer(answer.getAnswer())
+                        .memory(answer.getMemory())
+                        .openYn(answer.getOpenYn())
+                        .regDate(answer.getRegDate())
+                        .successYn(answer.getSuccessYn())
+                        .time(answer.getTime())
+                        .updtDate(answer.getUpdtDate())
+                        .totalLikeCnt( likeRepository.countByAnswer( answer ) )
+                        .myLikeCnt( likeRepository.countByUserAndAnswer( answer.getUser(), answer ) )
+                        .build();
                     return Header.OK(answerResponse);
                 })
                 .orElseGet(

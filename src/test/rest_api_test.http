@@ -115,12 +115,29 @@ Content-Type: application/json
 
 
 ### 답안 상세 조회
-GET http://localhost:8080/answer/3
+GET http://localhost:8080/answer/1
 ###
 
 ### 답안 삭제
 DELETE http://localhost:8080/answer/11
-###
+
+### 답안 등록
+POST http://localhost:8080/answer
+Content-Type: application/json
+
+{
+    "data" : {
+        "problem_seq" : 1
+        , "language_code" : "C1001"
+        , "user_seq" : 15
+        , "answer" : "System.out.println('hello,123131');"
+        , "success_yn" : "N"
+        , "open_yn" : "Y"
+        , "time" : "23"
+        , "memory" : "20"
+    }
+}
+
 
 
 ### 좋아요 ==================================================================================
@@ -132,7 +149,7 @@ Content-Type: application/json
 {
   "data" : {
     "answer_seq" : 1
-  , "user_seq" : 1
+  , "user_seq" : 15
   }
 }
 
@@ -140,3 +157,4 @@ Content-Type: application/json
 DELETE http://localhost:8080/like/3
 
 ###
+

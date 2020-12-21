@@ -35,4 +35,10 @@ public class AnswerResponse {
 
     private Long memory;
 
+    private Long userSeq;
+
+    private Long totalLikeCnt;
+
+    private Long myLikeCnt;
+
 }

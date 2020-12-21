@@ -10,6 +10,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.List;
 
 
 @Entity
@@ -60,6 +61,6 @@ public class Answer {
     private Long memory;
 
     @OneToMany(mappedBy = "answer")
-    private Collection<LikeAnswer> likeAnswer;
+    private List<LikeAnswer> likeAnswer;
 
 }
