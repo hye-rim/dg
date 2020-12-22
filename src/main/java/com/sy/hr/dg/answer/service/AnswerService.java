@@ -85,7 +85,7 @@ public class AnswerService {
                         .userSeq(answer.getUser().getUserSeq())
                         .answerSeq(answer.getAnswerSeq())
                         .languageCode(answer.getLanguageCode())
-                        .email(answer.getUser().getEmail())
+                        .nickname( answer.getUser().getNickname() )
                         .answer(answer.getAnswer())
                         .memory(answer.getMemory())
                         .openYn(answer.getOpenYn())
@@ -143,17 +143,20 @@ public class AnswerService {
         List<AnswerResponse> answerResponseList = new ArrayList<>();
 
         Stream<Answer> answerStream = answerList.stream();
-        answerStream.forEach( ( p ) -> {
+        answerStream.forEach( ( a ) -> {
             AnswerResponse answerResponse = AnswerResponse.builder()
-                                                            .answerSeq( p.getAnswerSeq() )
-                                                            .languageCode( p.getLanguageCode() )
-                                                            .answer( p.getAnswer() )
-                                                            .regDate( p.getRegDate() )
-                                                            .updtDate( p.getUpdtDate() )
-                                                            .successYn( p.getSuccessYn() )
-                                                            .openYn( p.getOpenYn() )
-                                                            .time( p.getTime() )
-                                                            .memory( p.getMemory() )
+                                                            .answerSeq( a.getAnswerSeq() )
+                                                            .languageCode( a.getLanguageCode() )
+                                                            .nickname( a.getUser().getNickname() )
+                                                            .userSeq( a.getUser().getUserSeq() )
+                                                            .answer( a.getAnswer() )
+                                                            .regDate( a.getRegDate() )
+                                                            .updtDate( a.getUpdtDate() )
+                                                            .successYn( a.getSuccessYn() )
+                                                            .openYn( a.getOpenYn() )
+                                                            .time( a.getTime() )
+                                                            .memory( a.getMemory() )
+                                                            .totalLikeCnt( likeRepository.countByAnswer( a ) )
                                                             .build();
 
             answerResponseList.add( answerResponse );

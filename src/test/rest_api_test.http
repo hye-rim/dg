@@ -109,7 +109,7 @@ Content-Type: application/json
     "data" : {
         "problem_seq" : 1
         , "language_code" : "C1001"
-        , "user_seq" : 15
+        , "user_seq" : 1
         , "success_yn" : "N"
     }
 }

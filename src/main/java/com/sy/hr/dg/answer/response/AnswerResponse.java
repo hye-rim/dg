@@ -19,8 +19,6 @@ public class AnswerResponse {
 
     private String languageCode;
 
-    private String email;
-
     private String answer;
 
     private LocalDateTime regDate;
@@ -40,5 +38,7 @@ public class AnswerResponse {
     private Long totalLikeCnt;
 
     private Long myLikeCnt;
+
+    private String nickname;
 
 }
