@@ -18,4 +18,6 @@ public class UserAuthRequest {
 
     private String authCode;
 
+    private String sendYn;
+
 }

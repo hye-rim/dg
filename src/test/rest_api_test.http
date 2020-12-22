@@ -43,14 +43,14 @@ Content-Type: application/json
   }
 }
 
-### 이메일 인증 메일 발송
+### 비밀번호 변경 시 이메일 인증 메일 발송
 POST http://localhost:8080/user/send
 Content-Type: application/json
 
 {
   "data" : {
-    "user_name" : "서연7"
-  , "email" : "tjdusl0824@gmail.com"
+    "user_name" : "혜림"
+  , "email" : "hrim39@gmail.com"
   }
 }
 
@@ -60,9 +60,10 @@ Content-Type: application/json
 
 {
   "data" : {
-    "user_seq" : "15"
-    , "email" : "seoyeon@mail.com"
-    , "auth_code" : "145274"
+    "user_seq" : "1"
+    , "email" : "hrim39@gmail.com"
+    , "auth_code" : "380624"
+    , "send_yn" : "Y"
   }
 }
 
@@ -73,7 +74,7 @@ Content-Type: application/json
 {
   "data" : {
     "user_seq" : "15"
-    , "password" : "dream1004!@#"
+    , "password" : "dream1004!@#4234343"
   }
 }
 
@@ -155,6 +156,9 @@ Content-Type: application/json
 
 ###좋아요 취소
 DELETE http://localhost:8080/like/3
+
+###테스트
+PUT http://localhost:8080/like/3
 
 ###
 

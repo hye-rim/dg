@@ -21,12 +21,13 @@ public class UserSendEmailRequest {
 
     private String email;
 
-    public Email sendEmailInfo(String sendYn, String title, String content, User user ) {
+    public Email sendEmailInfo(String sendYn, String fromEmail, String title, String content, User user ) {
         return  Email.builder()
                 .sendYn( sendYn )
                 .title( title )
                 .contents( content )
                 .receiver( email )
+                .sender( fromEmail )
                 .user( user )
                 .build();
     }

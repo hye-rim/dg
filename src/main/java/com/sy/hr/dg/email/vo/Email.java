@@ -2,6 +2,7 @@ package com.sy.hr.dg.email.vo;
 
 import com.sy.hr.dg.user.vo.User;
 import lombok.*;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -26,7 +27,7 @@ public class Email {
     @Column(updatable = false)
     private String contents;
 
-    @Column(insertable = false, updatable = false)
+    @Column(insertable = false)
     private String sendYn;
 
     @Column(insertable = false)

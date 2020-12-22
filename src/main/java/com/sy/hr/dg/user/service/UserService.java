@@ -1,6 +1,8 @@
 package com.sy.hr.dg.user.service;
 
+import com.sy.hr.dg.email.dto.SendEmail;
 import com.sy.hr.dg.email.repository.EmailRepository;
+import com.sy.hr.dg.email.service.EmailService;
 import com.sy.hr.dg.email.vo.Email;
 import com.sy.hr.dg.model.network.Header;
 import com.sy.hr.dg.user.repository.UserRepository;
@@ -9,6 +11,7 @@ import com.sy.hr.dg.user.response.*;
 import com.sy.hr.dg.user.vo.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -30,6 +33,12 @@ public class UserService {
 
     @Autowired
     private JavaMailSender javaMailSender;
+
+    @Autowired
+    private EmailService emailService;
+
+    @Value("${aws.ses.veritied.email}")
+    private String fromEmail;
 
     public Header<UserDoubleCheckResponse> doubleCheckEmail(String email) {
 
@@ -123,18 +132,15 @@ public class UserService {
         String title = "[DG] 비밀 번호 변경 인증 번호";
         String content = "인증 번호는 [" + num + "] 입니다.";
 
-        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
-        simpleMailMessage.setTo( userSendEmailRequest.getEmail() );
-        simpleMailMessage.setSubject( title );
-        simpleMailMessage.setText( content );
+        SendEmail sendEmail = SendEmail.builder().to( userSendEmailRequest.getEmail() ).from( fromEmail ).subject( title ).content( content ).build();
 
-        //javaMailSender.send( simpleMailMessage );
+        emailService.sendEmail( sendEmail );
 
         Optional<User> user = userRepository.findByEmail( userSendEmailRequest.getEmail() );
 
-        Email sendEmail = userSendEmailRequest.sendEmailInfo( "Y", title, content, user.get() );
+        Email email = userSendEmailRequest.sendEmailInfo( "Y", fromEmail, title, content, user.get() );
 
-        emailRepository.save( sendEmail );
+        emailRepository.save( email );
 
         UserSendEmailResponse userSendEmailResponse = UserSendEmailResponse.builder()
                                                       .sendYn( "Y" )
@@ -154,6 +160,7 @@ public class UserService {
                                     .emailSeq( authEmail.get().getEmailSeq() )
                                     .user( user.get() )
                                     .authYn( "Y" )
+                                    .sendYn( userAuthRequest.getSendYn() )
                                     .build();
 
             emailRepository.save( updateEmail );
