@@ -7,16 +7,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * @className UserSendEmailRequest
+ * @description 이메일 전송 Request
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class UserSendEmailRequest {
-    /**
-     * @className UserSendEmailRequest
-     * @description 이메일 전송 Request
-     */
-
     private String userName;
 
     private String email;

@@ -69,7 +69,7 @@ public class UserController {
     }
 
     @PutMapping
-    public Header modifyUser( @RequestBody Header<UserModifyRequest> request ) {
+    public Header modifyUser( @RequestBody Header<UserUpdateRequest> request ) {
         /**
          * @description 회원 정보 수정
          * @method modifyUser
@@ -166,4 +166,17 @@ public class UserController {
         return userService.withdrawalUser( userSeq );
     }
 
+    @PostMapping("/login")
+    public Header login( @RequestBody Header<UserLoginRequest> request ) {
+        /**
+         * @description 로그인
+         * @method login
+         * @params [request]
+         * @return com.sy.hr.dg.model.network.Header
+         *
+         * @author sy
+         * @since 2020-12-24
+        */
+        return userService.login( request );
+    }
 }

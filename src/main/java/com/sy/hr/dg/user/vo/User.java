@@ -30,13 +30,13 @@ public class User {
     @Column
     private String userName;
 
-    @Column(insertable=false, updatable=false)
+    @Column
     private String email;
 
-    @Column(insertable=false, updatable=false)
+    @Column
     private String nickname;
 
-    @Column(insertable=false, updatable=false)
+    @Column
     private String password;
 
     @Column
@@ -48,7 +48,7 @@ public class User {
     @Column(columnDefinition = "0")
     private Integer successCount;
 
-    @Column
+    @Column(updatable = false)
     @CreationTimestamp
     private LocalDateTime regDate;
 
