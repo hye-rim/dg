@@ -3,6 +3,7 @@ package com.sy.hr.dg.problem.response;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import com.sy.hr.dg.problem.vo.Problem;
 import com.sy.hr.dg.user.vo.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
