@@ -1,10 +1,21 @@
 ### 회원 ==================================================================================
 
+### 로그인
+POST http://localhost:8080/user/login
+Content-Type: application/json
+
+{
+  "data" : {
+    "email" : "tjdusl111@naver.com"
+    , "password" : "dream1004!"
+  }
+}
+
 ### 회원 정보 조회
-GET http://localhost:8080/user/jjj@abc.com
+GET http://localhost:8080/user/tjdusl111@naver.com
 
 ### 닉네임 중복 확인
-GET http://localhost:8080/user/nickname/Joo
+GET http://localhost:8080/user/nickname/서여니
 
 ### 회원 정보 등록
 POST http://localhost:8080/user/
@@ -12,7 +23,7 @@ Content-Type: application/json
 
 {
   "data" : {
-    "user_name" : "정서연16"
+    "user_name" : "정서연"
     , "email" : "tjdusl111@naver.com"
     , "nickname" : "서여니"
     , "password" : "dream1004!"
@@ -26,9 +37,15 @@ Content-Type: application/json
 
 {
   "data" : {
-    "user_seq" : "34"
-  , "password" : "dream1004!123"
-  , "mobile" : "01099998888"
+    "user_seq" : "36"
+    , "user_name" : "정서연"
+    , "email" : "tjdusl111@naver.com"
+    , "nickname" : "서여니"
+    , "password" : "dream1004!123"
+    , "mobile" : "01099998888"
+    , "try_count" : 0
+    , "success_count" : 0
+    , "delete_yn" : "N"
   }
 }
 
@@ -39,7 +56,7 @@ Content-Type: application/json
 {
   "data" : {
     "user_name" : "정서연"
-    , "mobile" : "1012345678"
+    , "mobile" : "01099998888"
   }
 }
 
@@ -49,8 +66,8 @@ Content-Type: application/json
 
 {
   "data" : {
-    "user_name" : "혜림"
-  , "email" : "hrim39@gmail.com"
+    "user_name" : "정서연"
+  , "email" : "tjdusl111@gmail.com"
   }
 }
 
@@ -60,9 +77,9 @@ Content-Type: application/json
 
 {
   "data" : {
-    "user_seq" : "1"
-    , "email" : "hrim39@gmail.com"
-    , "auth_code" : "380624"
+    "user_seq" : "36"
+    , "email" : "tjdusl111@naver.com"
+    , "auth_code" : "183389"
     , "send_yn" : "Y"
   }
 }
@@ -73,13 +90,13 @@ Content-Type: application/json
 
 {
   "data" : {
-    "user_seq" : "15"
+    "user_seq" : "36"
     , "password" : "dream1004!@#4234343"
   }
 }
 
 ### 회원 탈퇴
-PUT http://localhost:8080/user/20
+PUT http://localhost:8080/user/36
 Content-Type: application/json
 
 ### 문제 ==================================================================================
@@ -91,7 +108,7 @@ Content-Type: application/json
 {
   "data" : {
      "level" : "C2001"
-    , "user_seq" : "15"
+    , "user_seq" : "1"
   }
 }
 
@@ -109,11 +126,10 @@ Content-Type: application/json
     "data" : {
         "problem_seq" : 1
         , "language_code" : "C1001"
-        , "user_seq" : 1
+        , "user_seq" : 36
         , "success_yn" : "N"
     }
 }
-
 
 ### 답안 상세 조회
 GET http://localhost:8080/answer/1
@@ -130,8 +146,8 @@ Content-Type: application/json
     "data" : {
         "problem_seq" : 1
         , "language_code" : "C1001"
-        , "user_seq" : 15
-        , "answer" : "System.out.println('hello,123131');"
+        , "user_seq" : 36
+        , "answer" : "System.out.println('답안 등록 테스트2');"
         , "success_yn" : "N"
         , "open_yn" : "Y"
         , "time" : "23"
@@ -149,8 +165,8 @@ Content-Type: application/json
 
 {
   "data" : {
-    "answer_seq" : 1
-  , "user_seq" : 15
+    "answer_seq" : 11
+  , "user_seq" : 36
   }
 }
 
