@@ -39,7 +39,7 @@ public class AnswerController {
     public Header registAnswer(@RequestBody Header<AnswerRegistRequest> request ) {
 
         /**
-         * @description 답안등록
+         * @description 답안 등록
          * @method registAnswer
          * @params [request]
          * @return com.sy.hr.dg.model.network.Header

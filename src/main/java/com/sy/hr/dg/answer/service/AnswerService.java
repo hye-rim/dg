@@ -5,6 +5,7 @@ import com.sy.hr.dg.answer.request.AnswerListRequest;
 import com.sy.hr.dg.answer.request.AnswerRegistRequest;
 import com.sy.hr.dg.answer.response.AnswerListResponse;
 import com.sy.hr.dg.answer.response.AnswerResponse;
+import com.sy.hr.dg.answer.search.AnswerSearch;
 import com.sy.hr.dg.answer.vo.Answer;
 import com.sy.hr.dg.code.repository.CodeRepository;
 import com.sy.hr.dg.like.repository.LikeRepository;
@@ -114,7 +115,7 @@ public class AnswerService {
     public Header<AnswerListResponse> readAnswerList(Header<AnswerListRequest> request) {
         AnswerListRequest answerListRequest = request.getData();
 
-        List<Answer> answerList = answerRepository.findAll(
+        /*List<Answer> answerList = answerRepository.findAll(
             new Specification<Answer>() {
                 @Override
                 public Predicate toPredicate(Root<Answer> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
@@ -138,7 +139,9 @@ public class AnswerService {
 
                     return criteriaBuilder.and( predicates.toArray( new Predicate[ predicates.size() ] ) );
                 }
-            });
+            });*/
+
+        List<Answer> answerList = answerRepository.findAll( AnswerSearch.answerSearchCondition( answerListRequest ) );
 
         List<AnswerResponse> answerResponseList = new ArrayList<>();
 
