@@ -31,8 +31,6 @@ public class UserController {
          * @author sy
          * @since 2020-12-14
          */
-        System.out.println( userService.doubleCheckEmail( email ) );
-
         return userService.doubleCheckEmail( email );
     }
 
@@ -47,8 +45,6 @@ public class UserController {
          * @author hr
          * @since 2020-11-25
          */
-        log.info( "request => {}", request );
-
         return userService.registUser( request );
     }
 
@@ -63,8 +59,6 @@ public class UserController {
          * @author hr
          * @since 2020-11-25
          */
-        log.info( "email => {}", email );
-
         return userService.readUser( email );
     }
 

@@ -115,32 +115,6 @@ public class AnswerService {
     public Header<AnswerListResponse> readAnswerList(Header<AnswerListRequest> request) {
         AnswerListRequest answerListRequest = request.getData();
 
-        /*List<Answer> answerList = answerRepository.findAll(
-            new Specification<Answer>() {
-                @Override
-                public Predicate toPredicate(Root<Answer> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
-                    List<Predicate> predicates = new ArrayList<>();
-                    Join<User, Answer> userAnswerJoin = root.join("user");
-                    Join<Problem, Answer> problemAnswerJoin = root.join("problem");
-
-                    if( !StringUtils.isEmpty( answerListRequest.getProblemSeq() ) )
-                        predicates.add( criteriaBuilder.equal( problemAnswerJoin.get("problemSeq"), answerListRequest.getProblemSeq() ) );
-                        //predicates.add( criteriaBuilder.like( root.get("problemSeq"), "%" + answerListRequest.getProblemSeq() + "%" ) );
-
-                    if( !StringUtils.isEmpty( answerListRequest.getLanguageCode() ) )
-                        predicates.add( criteriaBuilder.like( root.get("languageCode"), "%" + answerListRequest.getLanguageCode() + "%" ) );
-
-                    if( !StringUtils.isEmpty( answerListRequest.getUserSeq() ) )
-                        predicates.add( criteriaBuilder.equal( userAnswerJoin.get("userSeq"), answerListRequest.getUserSeq() ) );
-                        //predicates.add( criteriaBuilder.like( root.get("userSeq"), "%" + answerListRequest.getUserSeq() + "%" ) );
-
-                    if( !StringUtils.isEmpty( answerListRequest.getSuccessYn() ) )
-                        predicates.add( criteriaBuilder.like( root.get("successYn"), "%" + answerListRequest.getSuccessYn() + "%" ) );
-
-                    return criteriaBuilder.and( predicates.toArray( new Predicate[ predicates.size() ] ) );
-                }
-            });*/
-
         List<Answer> answerList = answerRepository.findAll( AnswerSearch.answerSearchCondition( answerListRequest ) );
 
         List<AnswerResponse> answerResponseList = new ArrayList<>();

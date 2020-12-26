@@ -27,17 +27,15 @@ public class AnswerSearch {
 
             if( !StringUtils.isEmpty( answerListRequest.getProblemSeq() ) )
                 predicates.add( criteriaBuilder.equal( problemAnswerJoin.get("problemSeq"), answerListRequest.getProblemSeq() ) );
-            //predicates.add( criteriaBuilder.like( root.get("problemSeq"), "%" + answerListRequest.getProblemSeq() + "%" ) );
 
             if( !StringUtils.isEmpty( answerListRequest.getLanguageCode() ) )
-                predicates.add( criteriaBuilder.like( root.get("languageCode"), "%" + answerListRequest.getLanguageCode() + "%" ) );
+                predicates.add( criteriaBuilder.equal( root.get("languageCode"), answerListRequest.getLanguageCode() ) );
 
             if( !StringUtils.isEmpty( answerListRequest.getUserSeq() ) )
                 predicates.add( criteriaBuilder.equal( userAnswerJoin.get("userSeq"), answerListRequest.getUserSeq() ) );
-            //predicates.add( criteriaBuilder.like( root.get("userSeq"), "%" + answerListRequest.getUserSeq() + "%" ) );
 
             if( !StringUtils.isEmpty( answerListRequest.getSuccessYn() ) )
-                predicates.add( criteriaBuilder.like( root.get("successYn"), "%" + answerListRequest.getSuccessYn() + "%" ) );
+                predicates.add( criteriaBuilder.equal( root.get("successYn"), answerListRequest.getSuccessYn()) );
 
             return criteriaBuilder.and( predicates.toArray( new Predicate[ predicates.size() ] ) );
         });
