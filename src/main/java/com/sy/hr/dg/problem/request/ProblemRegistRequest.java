@@ -13,15 +13,10 @@ import lombok.NoArgsConstructor;
 public class ProblemRegistRequest {
 
     private Long userSeq;
-
     private String level;
-
     private String problemTitle;
-
     private String problemContents;
-
     private String input;
-
     private String output;
 
 }

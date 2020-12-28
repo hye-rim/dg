@@ -13,16 +13,11 @@ import lombok.NoArgsConstructor;
 public class ProblemModifyRequest {
 
     private Long problemSeq;
-
     private Long userSeq;
-
     private String level;
-
     private String problemTitle;
-
     private String problemContents;
-
     private String input;
-
     private String output;
+
 }

@@ -36,7 +36,6 @@ public class ProblemSearch {
 
             if( !StringUtils.isEmpty( problemReadRequest.getUserSeq() ) )
                 predicates.add( criteriaBuilder.equal( userProblemJoin.get("userSeq"), problemReadRequest.getUserSeq() ) );
-            //predicates.add( criteriaBuilder.and( userProblemJoin.get("userSeq"), problemReadRequest.getUserSeq() ) );
 
             return criteriaBuilder.and( predicates.toArray( new Predicate[ predicates.size() ] ) );
         });

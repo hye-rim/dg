@@ -18,23 +18,14 @@ import lombok.NoArgsConstructor;
 public class ProblemResponse {
 
     private Long problemSeq;
-
     private Long userSeq;
-
     private String level;
-
     private String problemTitle;
-
     private String problemContents;
-
     private LocalDateTime regDate;
-
     private LocalDateTime updtDate;
-
     private String input;
-
     private String output;
-
     private String status;
 
 }

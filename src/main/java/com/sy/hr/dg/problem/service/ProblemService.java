@@ -54,10 +54,9 @@ public class ProblemService {
     }
 
     public Header<ProblemListResponse> readProblemList(Header<ProblemReadRequest> request) {
+        log.info( "readProblemList request -> {}", request );
 
         ProblemReadRequest problemReadRequest = request.getData();
-
-        log.info( "request -> {}", problemReadRequest );
 
         List<Problem> problem = problemRepository.findAll( ProblemSearch.problemSearchCondition( problemReadRequest ) );
 
@@ -79,13 +78,9 @@ public class ProblemService {
                                                             .build();
 
             problemList.add( problemResponse );
-
-            log.info( "problemResponse -> {}", problemResponse );
         });
 
         ProblemListResponse problemListResponse = ProblemListResponse.builder().problemList( problemList ).build();
-
-        log.info( "problemListResponse -> {}", problemListResponse );
 
         return Header.OK( problemListResponse );
     }
@@ -93,17 +88,16 @@ public class ProblemService {
     public Header modifyProblem(Header<ProblemModifyRequest> request) {
         log.info("modifyProblem request => {}", request);
 
-        Problem problem = new Problem();
-
         ProblemModifyRequest problemModifyRequest = request.getData();
-
-        problem.setInput(problemModifyRequest.getInput());
-        problem.setProblemTitle(problemModifyRequest.getProblemTitle());
-        problem.setLevel(problemModifyRequest.getLevel());
-        problem.setOutput(problemModifyRequest.getOutput());
-        problem.setProblemContents(problemModifyRequest.getProblemContents());
-        problem.setUser(userRepository.getOne(problemModifyRequest.getUserSeq()));
-        problem.setProblemSeq(problemModifyRequest.getProblemSeq());
+        Problem problem  = Problem.builder()
+                .problemContents(problemModifyRequest.getProblemContents())
+                .problemTitle(problemModifyRequest.getProblemTitle())
+                .input(problemModifyRequest.getInput())
+                .output(problemModifyRequest.getOutput())
+                .level(problemModifyRequest.getLevel())
+                .user(userRepository.getOne(problemModifyRequest.getUserSeq()))
+                .problemSeq(problemModifyRequest.getProblemSeq())
+                .build();
 
         problemRepository.save( problem );
 
@@ -111,6 +105,7 @@ public class ProblemService {
     }
 
     public Header registProblem(Header<ProblemRegistRequest> request) {
+        log.info("registProblem request => {}", request);
 
         ProblemRegistRequest problemRegistRequest = request.getData();
         Problem problem  = Problem.builder()
