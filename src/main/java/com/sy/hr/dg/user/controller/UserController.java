@@ -86,7 +86,7 @@ public class UserController {
         return userService.doubleCheckNickname( nickname );
     }
 
-    @PostMapping("/search-email")
+    @PostMapping("/email")
     public Header<UserFindEmailResponse> searchEmail(@RequestBody Header<UserFindEmailRequest> request ) {
         /**
          * @description 이메일 찾기

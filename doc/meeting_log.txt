@@ -203,3 +203,6 @@
         . Answer : 30000
         . likeAnswer : 40000
         . Email : 50000
+
+* Todo
+    - 답안 삭제 시 좋아요도 같이 삭제
