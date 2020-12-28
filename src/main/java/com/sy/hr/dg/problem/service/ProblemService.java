@@ -7,6 +7,7 @@ import com.sy.hr.dg.problem.request.ProblemReadRequest;
 import com.sy.hr.dg.problem.request.ProblemRegistRequest;
 import com.sy.hr.dg.problem.response.ProblemListResponse;
 import com.sy.hr.dg.problem.response.ProblemResponse;
+import com.sy.hr.dg.problem.search.ProblemSearch;
 import com.sy.hr.dg.problem.vo.Problem;
 import com.sy.hr.dg.user.repository.UserRepository;
 import com.sy.hr.dg.user.vo.User;
@@ -58,33 +59,7 @@ public class ProblemService {
 
         log.info( "request -> {}", problemReadRequest );
 
-        List<Problem> problem = problemRepository.findAll(
-                new Specification<Problem>() {
-                    @Override
-                    public Predicate toPredicate(Root<Problem> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
-                        List<Predicate> predicates = new ArrayList<>();
-                        Join<User, Problem> userProblemJoin = root.join("user");
-
-                        if( !StringUtils.isEmpty( problemReadRequest.getProblemTitle() ) )
-                            predicates.add( criteriaBuilder.like( root.get("problemTitle"), "%" + problemReadRequest.getProblemTitle() + "%" ) );
-
-                        if( !StringUtils.isEmpty( problemReadRequest.getLanguageCode() ) )
-                            predicates.add( criteriaBuilder.like( root.get("languageCode"), "%" + problemReadRequest.getLanguageCode() + "%" ) );
-
-                        if( !StringUtils.isEmpty( problemReadRequest.getLevel() ) )
-                            predicates.add( criteriaBuilder.like( root.get("level"), "%" + problemReadRequest.getLevel() + "%" ) );
-
-                        if( !StringUtils.isEmpty( problemReadRequest.getNickname() ) )
-                            predicates.add( criteriaBuilder.like( root.get("nickname"), "%" + problemReadRequest.getNickname() + "%" ) );
-
-                        if( !StringUtils.isEmpty( problemReadRequest.getUserSeq() ) )
-                            predicates.add( criteriaBuilder.equal( userProblemJoin.get("userSeq"), problemReadRequest.getUserSeq() ) );
-                            //predicates.add( criteriaBuilder.and( userProblemJoin.get("userSeq"), problemReadRequest.getUserSeq() ) );
-
-                        return criteriaBuilder.and( predicates.toArray( new Predicate[ predicates.size() ] ) );
-                    }
-                }
-        );
+        List<Problem> problem = problemRepository.findAll( ProblemSearch.problemSearchCondition( problemReadRequest ) );
 
         List<ProblemResponse> problemList = new ArrayList<>();
 
