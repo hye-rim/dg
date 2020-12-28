@@ -68,8 +68,7 @@ public class AnswerService {
                         .memory(answerRegistRequest.getMemory())
                         .build();
 
-        Answer newAnswer = answerRepository.save( answer );
-
+        answerRepository.save( answer );
 
         return OK();
     }

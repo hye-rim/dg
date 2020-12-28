@@ -52,6 +52,7 @@ public class Problem {
     @Column(updatable = false)
     private String status;
 
+
     /*@OneToMany(fetch = FetchType.LAZY, mappedBy = "problem")
     private List<Answer> answerList;*/
 

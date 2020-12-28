@@ -24,5 +24,4 @@ public class ProblemRegistRequest {
 
     private String output;
 
-
 }

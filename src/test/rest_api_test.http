@@ -104,7 +104,7 @@ Content-Type: application/json
 ### 문제 ==================================================================================
 
 ### 문제 목록 조회
-POST http://localhost:8080/problem
+POST http://localhost:8080/problem/list
 Content-Type: application/json
 
 {
@@ -131,6 +131,21 @@ Content-Type: application/json
   , "problem_contents" :"System.out.println을 이용해 hello world 찍기"
   , "input" : "없음"
   , "output" : "hello,world"
+  }
+}
+
+### 문제 등록
+POST http://localhost:8080/problem
+Content-Type: application/json
+
+{
+  "data" : {
+   "user_seq" : 1
+    , "level" : "C2002"
+    , "problem_title" : "a-b"
+    , "problem_contents" :"a와 b를 입력받아 웅앵"
+    , "input" : "3,2"
+    , "output" : "1"
   }
 }
 ### 답안 ==================================================================================

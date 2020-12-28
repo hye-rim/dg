@@ -109,6 +109,21 @@ public class ProblemService {
 
         return Header.OK();
     }
+
+    public Header registProblem(Header<ProblemRegistRequest> request) {
+
+        ProblemRegistRequest problemRegistRequest = request.getData();
+        Problem problem  = Problem.builder()
+                .problemContents(problemRegistRequest.getProblemContents())
+                .problemTitle(problemRegistRequest.getProblemTitle())
+                .input(problemRegistRequest.getInput())
+                .output(problemRegistRequest.getOutput())
+                .level(problemRegistRequest.getLevel())
+                .user(userRepository.getOne(problemRegistRequest.getUserSeq()))
+                .build();
+        problemRepository.save(problem);
+        return Header.OK();
+    }
 }
 
 

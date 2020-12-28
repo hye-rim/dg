@@ -37,7 +37,7 @@ public class ProblemController {
         return problemService.readProblem(problemSeq);
     }
 
-    @PostMapping
+    @PostMapping("/list")
     public Header<ProblemListResponse> readProblemList(@RequestBody Header<ProblemReadRequest> request ) {
         /**
          * @description 문제 목록 조회
@@ -65,5 +65,17 @@ public class ProblemController {
         return problemService.modifyProblem( request );
     }
 
-
+    @PostMapping
+    public Header registProblem (@RequestBody Header<ProblemRegistRequest> request){
+        /**
+         * @description 문제 등록
+         * @method registProblem
+         * @params [request]
+         * @return com.sy.hr.dg.model.network.Header
+         *
+         * @author hr
+         * @since 2020-12-28
+         */
+        return problemService.registProblem( request );
+    }
 }
