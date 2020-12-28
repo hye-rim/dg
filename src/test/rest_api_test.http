@@ -91,7 +91,7 @@ Content-Type: application/json
 {
   "data" : {
      "level" : "C2001"
-    , "user_seq" : "15"
+    , "user_seq" : "1"
   }
 }
 
@@ -99,6 +99,21 @@ Content-Type: application/json
 GET http://localhost:8080/problem/1
 
 
+### 문제 수정
+PUT http://localhost:8080/problem
+Content-Type: application/json
+
+{
+  "data" : {
+   "problem_seq" : 1
+  , "user_seq" : 1
+  , "level" : "C2002"
+  , "problem_title" : "hello world 를 출력하세요"
+  , "problem_contents" :"System.out.println을 이용해 hello world 찍기"
+  , "input" : "없음"
+  , "output" : "hello,world"
+  }
+}
 ### 답안 ==================================================================================
 
 ### 답안 목록 조회

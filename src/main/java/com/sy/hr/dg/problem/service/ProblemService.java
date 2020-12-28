@@ -2,7 +2,9 @@ package com.sy.hr.dg.problem.service;
 
 import com.sy.hr.dg.model.network.Header;
 import com.sy.hr.dg.problem.repository.ProblemRepository;
+import com.sy.hr.dg.problem.request.ProblemModifyRequest;
 import com.sy.hr.dg.problem.request.ProblemReadRequest;
+import com.sy.hr.dg.problem.request.ProblemRegistRequest;
 import com.sy.hr.dg.problem.response.ProblemListResponse;
 import com.sy.hr.dg.problem.response.ProblemResponse;
 import com.sy.hr.dg.problem.vo.Problem;
@@ -113,6 +115,25 @@ public class ProblemService {
         return Header.OK( problemListResponse );
     }
 
+    public Header modifyProblem(Header<ProblemModifyRequest> request) {
+        log.info("modifyProblem request => {}", request);
+
+        Problem problem = new Problem();
+
+        ProblemModifyRequest problemModifyRequest = request.getData();
+
+        problem.setInput(problemModifyRequest.getInput());
+        problem.setProblemTitle(problemModifyRequest.getProblemTitle());
+        problem.setLevel(problemModifyRequest.getLevel());
+        problem.setOutput(problemModifyRequest.getOutput());
+        problem.setProblemContents(problemModifyRequest.getProblemContents());
+        problem.setUser(userRepository.getOne(problemModifyRequest.getUserSeq()));
+        problem.setProblemSeq(problemModifyRequest.getProblemSeq());
+
+        problemRepository.save( problem );
+
+        return Header.OK();
+    }
 }
 
 

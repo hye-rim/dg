@@ -9,8 +9,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-// 문제 등록 기능
-public class ProblemRegistRequest {
+// 문제 수정
+public class ProblemModifyRequest {
+
+    private Long problemSeq;
 
     private Long userSeq;
 
@@ -23,6 +25,4 @@ public class ProblemRegistRequest {
     private String input;
 
     private String output;
-
-
 }
