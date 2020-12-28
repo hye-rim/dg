@@ -10,9 +10,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class UserAuthResponse {
+    /**
+     * @className UserAuthResponse
+     * @description 회원 인증
+     */
 
     private Long userSeq;
-
     private String authYn;
 
 }

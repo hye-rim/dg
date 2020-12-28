@@ -17,7 +17,6 @@ public class UserModifyPasswordRequest {
      */
 
     private Long userSeq;
-
     private String password;
 
     public User getUser() {

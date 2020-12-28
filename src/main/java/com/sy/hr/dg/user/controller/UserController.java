@@ -14,11 +14,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     @Autowired
-    private final UserService userService;
-
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
+    private UserService userService;
 
     @GetMapping("/doubleCheckEmail/{email}")
     public Header<UserDoubleCheckResponse> doubleCheckEmail( @PathVariable String email ) {
@@ -31,8 +27,6 @@ public class UserController {
          * @author sy
          * @since 2020-12-14
          */
-        System.out.println( userService.doubleCheckEmail( email ) );
-
         return userService.doubleCheckEmail( email );
     }
 
@@ -47,8 +41,6 @@ public class UserController {
          * @author hr
          * @since 2020-11-25
          */
-        log.info( "request => {}", request );
-
         return userService.registUser( request );
     }
 

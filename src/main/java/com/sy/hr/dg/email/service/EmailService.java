@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @Slf4j
 @Component
@@ -18,7 +19,7 @@ public class EmailService {
 
     private final AmazonSimpleEmailService amazonSimpleEmailService;
 
-    public Map<String, String> sendEmail(String toEmail, String fromEmail, String title, String content) {
+    public Optional<Map<String, String>> sendEmail(String toEmail, String fromEmail, String title, String content) {
         Map<String, String> resultMap = new HashMap<>();
 
         try {
@@ -39,6 +40,6 @@ public class EmailService {
         } catch ( AmazonSimpleEmailServiceException e ) {
             //to do..
         }
-        return resultMap;
+        return Optional.of( resultMap );
     }
 }

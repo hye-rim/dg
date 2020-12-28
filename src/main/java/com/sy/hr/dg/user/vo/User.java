@@ -12,14 +12,13 @@ import javax.persistence.Entity;
 import java.time.LocalDateTime;
 
 @Entity
-@DynamicUpdate  // save() 메서드 사용 시 해당 테이블 컬럼의 default 값이 적용 되지 않아 문제가 발생 함 이때 @DynamicUpdate 를 추가하면 정상적으로 작동
-//@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @Builder
 @DynamicInsert
+@DynamicUpdate
 public class User {
 
     @Id
