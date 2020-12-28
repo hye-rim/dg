@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Optional;
 
 import static com.sy.hr.dg.model.network.Header.OK;
@@ -37,6 +38,18 @@ public class LikeService {
 
     public LikeService(LikeRepository likeRepository) {
         this.likeRepository = likeRepository;
+    }
+
+//    //@Transactional
+    public void modifyTest() {
+
+        LikeAnswer likeAnswer = new LikeAnswer();
+        likeAnswer.setLikeSeq( 5L );
+        likeAnswer.setAnswer( answerRepository.findById( 1L ).get() );
+        likeAnswer.setUser( userRepository.findById( 16L ).get() );
+        //likeAnswer.setTest("test112313");
+
+        likeRepository.save( likeAnswer );
     }
 
 

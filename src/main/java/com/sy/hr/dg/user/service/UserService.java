@@ -57,10 +57,10 @@ public class UserService {
         return OK();
     }
 
-    public Header<UserReadForEmailResponse> readUser(String email) {
-        log.info("readUser email => {}", email);
+    public Header<UserReadForEmailResponse> readUser( Long userSeq ) {
+        log.info("readUser userSeq => {}", userSeq);
 
-        Optional<User> user = userRepository.findByEmail( email );
+        Optional<User> user = userRepository.findById( userSeq );
 
         return user.map( u -> {
             UserReadForEmailResponse response = UserReadForEmailResponse.builder()
@@ -77,11 +77,11 @@ public class UserService {
         }).orElseGet( () -> Header.ERROR( "존재하지 않는 회원입니다." ) );
     }
 
-    public Header modifyUser(Header<UserUpdateRequest> request) {
+    public Header modifyUser(Header<UserModifyRequest> request) {
         log.info("modifyUser request => {}", request);
 
-        UserUpdateRequest userUpdateRequest = request.getData();
-        userRepository.save( userUpdateRequest.getUser() );
+        UserModifyRequest userModifyRequest = request.getData();
+        userRepository.save( userModifyRequest.getUser() );
 
         return Header.OK( "회원 정보가 수정되었습니다." );
     }
@@ -155,7 +155,7 @@ public class UserService {
     public Header<UserAuthResponse> authEmail(Header<UserAuthRequest> request) {
         UserAuthRequest userAuthRequest = request.getData();
         Optional<User> user = userRepository.findById( userAuthRequest.getUserSeq() );
-        Optional<Email> authEmail = emailRepository.findByContentsContaining( userAuthRequest.getAuthCode() );
+        Optional<Email> authEmail = emailRepository.findByUserAndContentsContaining( user, userAuthRequest.getAuthCode() );
 
         return authEmail.map( auth -> {
             Email updateEmail = Email.builder()
@@ -208,7 +208,7 @@ public class UserService {
 
         // 세션 처리 필요 (스프링 시큐리티?)
 
-        return user.map( u -> Header.OK( "로그인 되었습니다." ) ).orElseGet( () -> Header.ERROR("가입된 회원이 아닙니다.") );
+        return user.map( u -> Header.OK( "로그인 되었습니다." ) ).orElseGet( () -> Header.ERROR("이메일 혹은 패스워드를 확인해주세요.") );
     }
 }
 

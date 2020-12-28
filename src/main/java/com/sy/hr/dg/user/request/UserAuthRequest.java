@@ -14,8 +14,6 @@ public class UserAuthRequest {
     
     private Long userSeq;
 
-    private String email;
-
     private String authCode;
 
     private String sendYn;

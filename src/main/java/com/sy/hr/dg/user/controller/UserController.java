@@ -52,24 +52,22 @@ public class UserController {
         return userService.registUser( request );
     }
 
-    @GetMapping("/{email}")
-    public Header<UserReadForEmailResponse> readUser( @PathVariable String email ) {
+    @GetMapping("/{userSeq}")
+    public Header<UserReadForEmailResponse> readUser( @PathVariable Long userSeq ) {
         /**
          * @description 회원 정보 조회
          * @method readUser
-         * @params [email]
-         * @return com.sy.hr.dg.model.network.Header<com.sy.hr.dg.model.network.response.user.UserReadForEmailResponse>
+         * @params [userSeq]
+         * @return com.sy.hr.dg.model.network.Header<com.sy.hr.dg.user.response.UserReadForEmailResponse>
          *
          * @author hr
-         * @since 2020-11-25
+         * @since 2020-12-28
          */
-        log.info( "email => {}", email );
-
-        return userService.readUser( email );
+        return userService.readUser( userSeq );
     }
 
     @PutMapping
-    public Header modifyUser( @RequestBody Header<UserUpdateRequest> request ) {
+    public Header modifyUser( @RequestBody Header<UserModifyRequest> request ) {
         /**
          * @description 회원 정보 수정
          * @method modifyUser

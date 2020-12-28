@@ -6,13 +6,16 @@ Content-Type: application/json
 
 {
   "data" : {
-    "email" : "tjdusl111@naver.com"
-    , "password" : "dream1004!"
+    "email" : "tjdusl1111@naver.com"
+  , "password" : "dream1004!"
   }
 }
 
 ### 회원 정보 조회
-GET http://localhost:8080/user/tjdusl111@naver.com
+GET http://localhost:8080/user/36
+
+### 이메일 중복 확인
+GET http://localhost:8080/user/doubleCheckEmail/tjdusl111@naver.com
 
 ### 닉네임 중복 확인
 GET http://localhost:8080/user/nickname/서여니
@@ -23,8 +26,8 @@ Content-Type: application/json
 
 {
   "data" : {
-    "user_name" : "정서연"
-    , "email" : "tjdusl111@naver.com"
+    "user_name" : "정서연1"
+    , "email" : "tjdusl1111@naver.com"
     , "nickname" : "서여니"
     , "password" : "dream1004!"
     , "mobile" : "01077778888"
@@ -56,7 +59,7 @@ Content-Type: application/json
 {
   "data" : {
     "user_name" : "정서연"
-    , "mobile" : "01099998888"
+    , "mobile" : "01099998878"
   }
 }
 
@@ -78,8 +81,7 @@ Content-Type: application/json
 {
   "data" : {
     "user_seq" : "36"
-    , "email" : "tjdusl111@naver.com"
-    , "auth_code" : "183389"
+    , "auth_code" : "278731"
     , "send_yn" : "Y"
   }
 }
@@ -90,8 +92,8 @@ Content-Type: application/json
 
 {
   "data" : {
-    "user_seq" : "36"
-    , "password" : "dream1004!@#4234343"
+    "user_seq" : 36
+    , "password" : "dream1004!!!!"
   }
 }
 
