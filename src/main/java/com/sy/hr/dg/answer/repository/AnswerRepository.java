@@ -12,6 +12,4 @@ import java.util.Optional;
 @Repository
 public interface AnswerRepository extends JpaRepository<Answer, Long>, JpaSpecificationExecutor<Answer> {
     Optional<Answer> findByAnswerSeq(Long answerSeq);
-
-    //Answer findByAnswerSeq(Long answerSeq);
 }

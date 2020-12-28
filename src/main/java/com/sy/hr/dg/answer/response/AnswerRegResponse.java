@@ -14,19 +14,12 @@ import lombok.NoArgsConstructor;
 public class AnswerRegResponse {
 
     private String code;
-
     private String answer;
-
     private String successYn;
-
     private String openYn;
-
     private Long time;
-
     private Long memory;
-
     private Long problemSeq;
-
     private Long userSeq;
 
 }

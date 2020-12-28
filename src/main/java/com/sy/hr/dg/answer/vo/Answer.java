@@ -9,19 +9,14 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Collection;
 import java.util.List;
 
-
 @Entity
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @Builder
-@ToString(exclude = {"problem","user"})
-//@Accessors(chain = true)
 public class Answer {
 
     @Id
@@ -36,28 +31,24 @@ public class Answer {
     @JoinColumn(name = "user_seq")
     private User user;
 
-    private String languageCode; // languageCode
+    private String languageCode;
 
     private String answer;
 
     @CreationTimestamp
-   // @Column(insertable = false, updatable = false)
     private LocalDateTime regDate;
 
     @UpdateTimestamp
-    //@Column(insertable = false, updatable = false)
     private LocalDateTime updtDate;
 
-    @Column(insertable = false, updatable = false)
+    @Column(insertable = false)
     private String successYn;
 
-    @Column(insertable = false, updatable = false)
+    @Column(insertable = false)
     private String openYn;
 
-    @Column(updatable = false)
     private Long time;
 
-    @Column(updatable = false)
     private Long memory;
 
     @OneToMany(mappedBy = "answer")
