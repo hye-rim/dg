@@ -37,7 +37,7 @@ public class EmailService {
                 resultMap.put( "errorMessage", sendEmailResult.getSdkResponseMetadata().toString() );
             }
         } catch ( AmazonSimpleEmailServiceException e ) {
-
+            //to do..
         }
         return resultMap;
     }

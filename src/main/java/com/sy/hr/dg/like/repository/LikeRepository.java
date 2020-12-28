@@ -16,6 +16,4 @@ public interface LikeRepository extends JpaRepository<LikeAnswer, Long> {
     Long countByUserAndAnswer(User user, Answer answer);
 
     Long countByAnswer(Answer answer);
-
-    //Answer findByAnswerSeq(Long answerSeq);
 }
