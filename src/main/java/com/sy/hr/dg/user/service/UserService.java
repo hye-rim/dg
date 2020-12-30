@@ -36,6 +36,7 @@ public class UserService {
     private String fromEmail;
 
     public Header<UserDoubleCheckResponse> doubleCheckEmail(String email) {
+        log.info( "doubleCheckEmail email => {}", email );
 
         Optional<User> user = userRepository.findByEmail( email );
 
@@ -49,18 +50,18 @@ public class UserService {
     }
 
     public Header registUser(Header<UserRegistRequest> request) {
-        log.info( "request => {}", request );
+        log.info( "registUser request => {}", request );
 
         UserRegistRequest userRegistRequest = request.getData();
-        User newUser = userRepository.save( userRegistRequest.getUser() );
+        userRepository.save( userRegistRequest.getUser() );
 
         return OK();
     }
 
-    public Header<UserReadForEmailResponse> readUser(String email) {
-        log.info("readUser email => {}", email);
+    public Header<UserReadForEmailResponse> readUser( Long userSeq ) {
+        log.info("readUser userSeq => {}", userSeq);
 
-        Optional<User> user = userRepository.findByEmail( email );
+        Optional<User> user = userRepository.findById( userSeq );
 
         return user.map( u -> {
             UserReadForEmailResponse response = UserReadForEmailResponse.builder()
@@ -77,11 +78,11 @@ public class UserService {
         }).orElseGet( () -> Header.ERROR( "존재하지 않는 회원입니다." ) );
     }
 
-    public Header modifyUser(Header<UserUpdateRequest> request) {
+    public Header modifyUser(Header<UserModifyRequest> request) {
         log.info("modifyUser request => {}", request);
 
-        UserUpdateRequest userUpdateRequest = request.getData();
-        userRepository.save( userUpdateRequest.getUser() );
+        UserModifyRequest userModifyRequest = request.getData();
+        userRepository.save( userModifyRequest.getUser() );
 
         return Header.OK( "회원 정보가 수정되었습니다." );
     }
@@ -106,19 +107,19 @@ public class UserService {
         log.info("serachEmail request => {}", request);
 
         UserFindEmailRequest userFindEmailRequest = request.getData();
-        Optional<User> getUser = userRepository.findByUserNameAndMobile( userFindEmailRequest.getUserName(), userFindEmailRequest.getMobile() );
+        Optional<User> user = userRepository.findByUserNameAndMobile( userFindEmailRequest.getUserName(), userFindEmailRequest.getMobile() );
 
-        return getUser.map( u -> {
+        return user.map( u -> {
             UserFindEmailResponse response = UserFindEmailResponse.builder().email( u.getEmail() ).build();
             return Header.OK( response );
         }).orElseGet( () -> Header.ERROR("존재하지 않는 회원입니다.") );
     }
 
     public Header<UserSendEmailResponse> sendEmail(Header<UserSendEmailRequest> request) {
+        log.info( "sendEmail request -> {}", request );
+
         // 1. 데이터
         UserSendEmailRequest userSendEmailRequest = request.getData();
-
-        log.info( "userSendEmailRequest -> {}", userSendEmailRequest );
 
         // 2. 회원 여부 확인
         return userRepository.findByEmailAndUserName( userSendEmailRequest.getEmail(), userSendEmailRequest.getUserName() )
@@ -126,17 +127,15 @@ public class UserService {
                     // 3. 인증번호 생성 (6자리)
                     int num = (int)(Math.random() * (999999 - 100000 + 1)) + 100000;
 
-                    String title = "[DG] 비밀 번호 변경 인증 번호";
+                    String title = "[DG] 비밀 번호 변경 안내";
                     String content = "인증 번호는 [" + num + "] 입니다.";
 
                     // 4. 메일 발송
-                    Map<String, String> sendEmailResult = emailService.sendEmail( userSendEmailRequest.getEmail(), fromEmail, title, content );
+                    Optional<Map<String, String>> sendEmailResult = emailService.sendEmail( userSendEmailRequest.getEmail(), fromEmail, title, content );
 
-                    Optional<Map<String, String>> sendEmailResultOptional = Optional.of( sendEmailResult );
-
-                    return sendEmailResultOptional.filter(
-                            s -> s.get( "status" ).equals( "success" )
-                    ).map( s -> {
+                    return sendEmailResult.filter(
+                            sendEmail -> sendEmail.get( "status" ).equals( "success" )
+                    ).map( sendEmail -> {
                         Optional<User> user = userRepository.findByEmail( userSendEmailRequest.getEmail() );
                         Email email = userSendEmailRequest.sendEmailInfo( "Y", fromEmail, title, content, user.get() );
                         emailRepository.save( email );
@@ -153,9 +152,11 @@ public class UserService {
     }
 
     public Header<UserAuthResponse> authEmail(Header<UserAuthRequest> request) {
+        log.info( "authEmail request -> {}", request );
+
         UserAuthRequest userAuthRequest = request.getData();
         Optional<User> user = userRepository.findById( userAuthRequest.getUserSeq() );
-        Optional<Email> authEmail = emailRepository.findByContentsContaining( userAuthRequest.getAuthCode() );
+        Optional<Email> authEmail = emailRepository.findByUserAndContentsContaining( user, userAuthRequest.getAuthCode() );
 
         return authEmail.map( auth -> {
             Email updateEmail = Email.builder()
@@ -177,6 +178,7 @@ public class UserService {
     }
 
     public Header changePassword(Header<UserModifyPasswordRequest> request) {
+        log.info( "changePassword request -> {}", request );
         UserModifyPasswordRequest userModifyPasswordRequest = request.getData();
 
         User user = userModifyPasswordRequest.getUser();
@@ -192,6 +194,7 @@ public class UserService {
 
     @Transactional
     public Header withdrawalUser(Long userSeq) {
+        log.info( "withdrawalUser userSeq -> {}", userSeq );
         Optional<User> user = userRepository.findById( userSeq );
 
         return user.map( u -> {
@@ -202,13 +205,14 @@ public class UserService {
     }
 
     public Header login(Header<UserLoginRequest> request) {
+        log.info( "login request -> {}", request );
         UserLoginRequest userLoginRequest = request.getData();
 
         Optional<User> user = userRepository.findByEmailAndPassword( userLoginRequest.getEmail(), userLoginRequest.getPassword() );
 
         // 세션 처리 필요 (스프링 시큐리티?)
 
-        return user.map( u -> Header.OK( "로그인 되었습니다." ) ).orElseGet( () -> Header.ERROR("가입된 회원이 아닙니다.") );
+        return user.map( u -> Header.OK( "로그인 되었습니다." ) ).orElseGet( () -> Header.ERROR("이메일 혹은 패스워드를 확인해주세요.") );
     }
 }
 

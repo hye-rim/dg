@@ -2,7 +2,9 @@ package com.sy.hr.dg.problem.service;
 
 import com.sy.hr.dg.model.network.Header;
 import com.sy.hr.dg.problem.repository.ProblemRepository;
+import com.sy.hr.dg.problem.request.ProblemModifyRequest;
 import com.sy.hr.dg.problem.request.ProblemReadRequest;
+import com.sy.hr.dg.problem.request.ProblemRegistRequest;
 import com.sy.hr.dg.problem.response.ProblemListResponse;
 import com.sy.hr.dg.problem.response.ProblemResponse;
 import com.sy.hr.dg.problem.search.ProblemSearch;
@@ -52,10 +54,9 @@ public class ProblemService {
     }
 
     public Header<ProblemListResponse> readProblemList(Header<ProblemReadRequest> request) {
+        log.info( "readProblemList request -> {}", request );
 
         ProblemReadRequest problemReadRequest = request.getData();
-
-        log.info( "request -> {}", problemReadRequest );
 
         List<Problem> problem = problemRepository.findAll( ProblemSearch.problemSearchCondition( problemReadRequest ) );
 
@@ -77,17 +78,47 @@ public class ProblemService {
                                                             .build();
 
             problemList.add( problemResponse );
-
-            log.info( "problemResponse -> {}", problemResponse );
         });
 
         ProblemListResponse problemListResponse = ProblemListResponse.builder().problemList( problemList ).build();
 
-        log.info( "problemListResponse -> {}", problemListResponse );
-
         return Header.OK( problemListResponse );
     }
 
+    public Header modifyProblem(Header<ProblemModifyRequest> request) {
+        log.info("modifyProblem request => {}", request);
+
+        ProblemModifyRequest problemModifyRequest = request.getData();
+        Problem problem  = Problem.builder()
+                .problemContents(problemModifyRequest.getProblemContents())
+                .problemTitle(problemModifyRequest.getProblemTitle())
+                .input(problemModifyRequest.getInput())
+                .output(problemModifyRequest.getOutput())
+                .level(problemModifyRequest.getLevel())
+                .user(userRepository.getOne(problemModifyRequest.getUserSeq()))
+                .problemSeq(problemModifyRequest.getProblemSeq())
+                .build();
+
+        problemRepository.save( problem );
+
+        return Header.OK();
+    }
+
+    public Header registProblem(Header<ProblemRegistRequest> request) {
+        log.info("registProblem request => {}", request);
+
+        ProblemRegistRequest problemRegistRequest = request.getData();
+        Problem problem  = Problem.builder()
+                .problemContents(problemRegistRequest.getProblemContents())
+                .problemTitle(problemRegistRequest.getProblemTitle())
+                .input(problemRegistRequest.getInput())
+                .output(problemRegistRequest.getOutput())
+                .level(problemRegistRequest.getLevel())
+                .user(userRepository.getOne(problemRegistRequest.getUserSeq()))
+                .build();
+        problemRepository.save(problem);
+        return Header.OK();
+    }
 }
 
 

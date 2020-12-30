@@ -1,7 +1,5 @@
 package com.sy.hr.dg.like.controller;
 
-import com.sy.hr.dg.answer.request.AnswerRegistRequest;
-import com.sy.hr.dg.answer.service.AnswerService;
 import com.sy.hr.dg.like.request.LikeAnswerRequest;
 import com.sy.hr.dg.like.service.LikeService;
 import com.sy.hr.dg.model.network.Header;

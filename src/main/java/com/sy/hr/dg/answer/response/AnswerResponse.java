@@ -16,29 +16,17 @@ import java.time.LocalDateTime;
 public class AnswerResponse {
 
     private Long answerSeq;
-
     private String languageCode;
-
     private String answer;
-
     private LocalDateTime regDate;
-
     private LocalDateTime updtDate;
-
     private String successYn;
-
     private String openYn;
-
     private Long time;
-
     private Long memory;
-
     private Long userSeq;
-
     private Long totalLikeCnt;
-
     private Long myLikeCnt;
-
     private String nickname;
 
 }

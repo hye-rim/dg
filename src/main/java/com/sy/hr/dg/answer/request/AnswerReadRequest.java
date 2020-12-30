@@ -13,11 +13,8 @@ import lombok.NoArgsConstructor;
 public class AnswerReadRequest {
 
     private String problemSeq;
-
     private String languageCode;
-
     private String userSeq;
-
     private String successYn;
 
 }

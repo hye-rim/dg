@@ -7,22 +7,14 @@ import com.sy.hr.dg.answer.response.AnswerListResponse;
 import com.sy.hr.dg.answer.response.AnswerResponse;
 import com.sy.hr.dg.answer.search.AnswerSearch;
 import com.sy.hr.dg.answer.vo.Answer;
-import com.sy.hr.dg.code.repository.CodeRepository;
 import com.sy.hr.dg.like.repository.LikeRepository;
-import com.sy.hr.dg.like.vo.LikeAnswer;
 import com.sy.hr.dg.model.network.Header;
 import com.sy.hr.dg.problem.repository.ProblemRepository;
-import com.sy.hr.dg.problem.response.ProblemResponse;
-import com.sy.hr.dg.problem.vo.Problem;
 import com.sy.hr.dg.user.repository.UserRepository;
-import com.sy.hr.dg.user.vo.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
-import javax.persistence.criteria.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -32,9 +24,6 @@ import static com.sy.hr.dg.model.network.Header.OK;
 
 @Service
 @Slf4j
-/**
- * @className AnswerService
- */
 public class AnswerService {
 
     @Autowired
@@ -47,13 +36,10 @@ public class AnswerService {
     private LikeRepository likeRepository;
 
     @Autowired
-    private CodeRepository codeRepository;
-
-    @Autowired
     private AnswerRepository answerRepository;
 
     public Header registAnswer(Header<AnswerRegistRequest> request) {
-        log.info( "request => {}", request );
+        log.info( "registAnswer request => {}", request );
 
         AnswerRegistRequest answerRegistRequest = request.getData();
 
@@ -68,8 +54,7 @@ public class AnswerService {
                         .memory(answerRegistRequest.getMemory())
                         .build();
 
-        Answer newAnswer = answerRepository.save( answer );
-
+        answerRepository.save( answer );
 
         return OK();
     }
@@ -100,16 +85,17 @@ public class AnswerService {
                     return Header.OK(answerResponse);
                 })
                 .orElseGet(
-                        ()->Header.ERROR("No Data")
+                        ()->Header.ERROR("조회할 답안이 없습니다.")
                 );
     }
 
     public Header deleteAnswer(Long answerSeq) {
+        log.info("deleteAnswer answerSeq => {}", answerSeq);
         Optional<Answer> optional = answerRepository.findByAnswerSeq(answerSeq);
         return optional.map(answer ->{
             answerRepository.delete(answer);
             return Header.OK();
-        }).orElseGet(()->Header.ERROR("No Data"));
+        }).orElseGet(()->Header.ERROR("삭제할 답안이 없습니다."));
     }
 
     public Header<AnswerListResponse> readAnswerList(Header<AnswerListRequest> request) {
@@ -120,20 +106,20 @@ public class AnswerService {
         List<AnswerResponse> answerResponseList = new ArrayList<>();
 
         Stream<Answer> answerStream = answerList.stream();
-        answerStream.forEach( ( a ) -> {
+        answerStream.forEach( answer -> {
             AnswerResponse answerResponse = AnswerResponse.builder()
-                                                            .answerSeq( a.getAnswerSeq() )
-                                                            .languageCode( a.getLanguageCode() )
-                                                            .nickname( a.getUser().getNickname() )
-                                                            .userSeq( a.getUser().getUserSeq() )
-                                                            .answer( a.getAnswer() )
-                                                            .regDate( a.getRegDate() )
-                                                            .updtDate( a.getUpdtDate() )
-                                                            .successYn( a.getSuccessYn() )
-                                                            .openYn( a.getOpenYn() )
-                                                            .time( a.getTime() )
-                                                            .memory( a.getMemory() )
-                                                            .totalLikeCnt( likeRepository.countByAnswer( a ) )
+                                                            .answerSeq( answer.getAnswerSeq() )
+                                                            .languageCode( answer.getLanguageCode() )
+                                                            .nickname( answer.getUser().getNickname() )
+                                                            .userSeq( answer.getUser().getUserSeq() )
+                                                            .answer( answer.getAnswer() )
+                                                            .regDate( answer.getRegDate() )
+                                                            .updtDate( answer.getUpdtDate() )
+                                                            .successYn( answer.getSuccessYn() )
+                                                            .openYn( answer.getOpenYn() )
+                                                            .time( answer.getTime() )
+                                                            .memory( answer.getMemory() )
+                                                            .totalLikeCnt( likeRepository.countByAnswer( answer ) )
                                                             .build();
 
             answerResponseList.add( answerResponse );

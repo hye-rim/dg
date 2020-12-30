@@ -9,8 +9,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-// 이메일 중복 확인, 닉네임 중복 확인
 public class UserDoubleCheckResponse {
+    /**
+     * @className UserDoubleCheckResponse
+     * @description 이메일 중복 확인, 닉네임 중복 확인
+     */
 
     private String duplicateYn;
 

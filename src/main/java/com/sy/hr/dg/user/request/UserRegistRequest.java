@@ -10,20 +10,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-/**
- * @className UserRegistRequest
- * @description 회원 등록 Request
- */
 public class UserRegistRequest {
+    /**
+     * @className UserRegistRequest
+     * @description 회원 등록 Request
+     */
 
     private String userName;
-
     private String email;
-
     private String nickname;
-
     private String password;
-
     private String mobile;
 
     public User getUser() {

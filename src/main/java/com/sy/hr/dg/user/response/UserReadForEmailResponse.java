@@ -10,23 +10,19 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-// 회원 정보 조회 기능
 public class UserReadForEmailResponse {
+    /**
+     * @className UserReadForEmailResponse
+     * @description 회원 정보 조회 기능
+     */
 
     private String userName;
-
     private String email;
-
     private String nickname;
-
     private String password;
-
     private String mobile;
-
     private Integer tryCount;
-
     private Integer successCount;
-
     private String deleteYn;
 
 }

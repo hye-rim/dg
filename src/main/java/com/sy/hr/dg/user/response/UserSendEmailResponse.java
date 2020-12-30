@@ -12,10 +12,10 @@ import lombok.NoArgsConstructor;
 public class UserSendEmailResponse {
     /**
      * @className UserSendEmailResponse
-     * @description 이메일 인증 메일 발송 Response
+     * @description 이메일 인증 메일 발송
      */
-    private String sendYn;
 
+    private String sendYn;
     private Long userSeq;
 
 }

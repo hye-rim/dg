@@ -1,7 +1,9 @@
 package com.sy.hr.dg.problem.controller;
 
 import com.sy.hr.dg.model.network.Header;
+import com.sy.hr.dg.problem.request.ProblemModifyRequest;
 import com.sy.hr.dg.problem.request.ProblemReadRequest;
+import com.sy.hr.dg.problem.request.ProblemRegistRequest;
 import com.sy.hr.dg.problem.response.ProblemListResponse;
 import com.sy.hr.dg.problem.response.ProblemResponse;
 import com.sy.hr.dg.problem.service.ProblemService;
@@ -35,7 +37,7 @@ public class ProblemController {
         return problemService.readProblem(problemSeq);
     }
 
-    @PostMapping
+    @PostMapping("/list")
     public Header<ProblemListResponse> readProblemList(@RequestBody Header<ProblemReadRequest> request ) {
         /**
          * @description 문제 목록 조회
@@ -49,5 +51,31 @@ public class ProblemController {
         return problemService.readProblemList( request );
     }
 
+    @PutMapping
+    public Header modifyProblem (@RequestBody Header<ProblemModifyRequest> request){
+        /**
+         * @description 문제 수정
+         * @method modifyProblem
+         * @params [request]
+         * @return com.sy.hr.dg.model.network.Header
+         *
+         * @author hr
+         * @since 2020-12-28
+         */
+        return problemService.modifyProblem( request );
+    }
 
+    @PostMapping
+    public Header registProblem (@RequestBody Header<ProblemRegistRequest> request){
+        /**
+         * @description 문제 등록
+         * @method registProblem
+         * @params [request]
+         * @return com.sy.hr.dg.model.network.Header
+         *
+         * @author hr
+         * @since 2020-12-28
+         */
+        return problemService.registProblem( request );
+    }
 }

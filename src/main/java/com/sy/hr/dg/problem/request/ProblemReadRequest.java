@@ -14,13 +14,9 @@ import lombok.NoArgsConstructor;
 public class ProblemReadRequest {
 
     private String problemTitle;
-
     private String languageCode;
-
     private String level;
-
     private String nickname;
-
     private String userSeq;
 
 }

@@ -15,6 +15,12 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Builder
+
+/**
+ * @className Code
+ * @description 추후 문제 목록 조회 시 코드 검색이나 답안 작성 시 언어 선택 할때 코드 조회 시 활용
+ *              관리자에서 코드 추가 삭제 기능도 필요함
+ */
 public class Code {
 
     @Id
